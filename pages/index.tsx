@@ -30,6 +30,7 @@ export default function Home() {
 
         <div className='w-full md:w-1/2'>
           <Image
+            alt='Ilustração de uma pessoa escrevendo em um quadro'
             src="/illustration.svg"
             height={400}
             width={600}
