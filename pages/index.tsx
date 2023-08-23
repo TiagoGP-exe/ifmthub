@@ -11,14 +11,14 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between pt-32  bg-white  w-full z-10`}
+      className={`flex min-h-screen flex-col items-center md:justify-between pt-32  w-full z-10`}
     >
       <HeaderNav />
       <Head>
         <title>Home</title>
       </Head>
 
-      <div className='flex-col-reverse md:flex-row flex items-start md:gap-8 justify-center max-w-screen-xl '>
+      <div className='flex-col-reverse md:flex-row flex items-start px-8 md:gap-8 justify-center max-w-screen-xl '>
         <div className='w-full md:w-1/2'>
           <h1 className=' text-5xl'>
             Compartilhe suas ideias facilmente
@@ -42,7 +42,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className='flex flex-col w-full items-start max-w-screen-xl'>
+      <section className='flex flex-col w-full items-start max-w-screen-xl p-8'>
         <div className='flex items-center gap-4 justify-center'>
           <TrendingUp size={32} />
           <h2 className='text-3xl font-bold text-center'>
