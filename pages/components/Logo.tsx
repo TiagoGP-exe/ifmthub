@@ -1,6 +1,6 @@
 import { useMantineColorScheme } from '@mantine/core'
 
-export const Logo = () => {
+const Logo = () => {
   const { colorScheme } = useMantineColorScheme()
 
   const color = colorScheme === 'dark' ? '#ffffff' : '#000000'
@@ -12,3 +12,5 @@ export const Logo = () => {
     </svg>
   )
 }
+
+export default Logo

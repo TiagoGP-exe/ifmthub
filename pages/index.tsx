@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Outfit } from 'next/font/google'
 import { Button } from '@mantine/core';
 import Head from 'next/head';
-import { HeaderNav } from './components/HeaderNav';
+import HeaderNav from './components/HeaderNav';
 import { TrendingUp } from 'lucide-react';
 
 
