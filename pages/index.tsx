@@ -1,9 +1,53 @@
 import Image from 'next/image'
-import { Outfit } from 'next/font/google'
 import { Button } from '@mantine/core';
 import Head from 'next/head';
 import HeaderNav from './components/HeaderNav';
 import { TrendingUp } from 'lucide-react';
+import HighlightPost from './components/HighlightPost';
+
+import { Outfit } from 'next/font/google'
+
+const outfit = Outfit({ subsets: ['latin'] })
+
+
+
+const fakePosts = [{
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+}, {
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+},
+{
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+},
+{
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+},
+{
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+}, {
+  title: 'Como criar um site com Next.js',
+  date: '2021-08-01',
+  image: '/illustration.svg',
+  slug: 'como-criar-um-site-com-nextjs',
+}
+
+
+]
 
 
 export default function Home() {
@@ -11,7 +55,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center md:justify-between pt-32  w-full z-10`}
+      className={`flex min-h-screen flex-col items-center md:justify-between pt-32  w-full z-10 ${outfit.className}`}
     >
       <HeaderNav />
       <Head>
@@ -43,22 +87,23 @@ export default function Home() {
       </div>
 
       <section className='flex flex-col w-full items-start max-w-screen-xl p-8'>
-        <div className='flex items-center gap-4 justify-center'>
+        <div className='flex items-center gap-x-4 justify-center'>
           <TrendingUp size={32} />
           <h2 className='text-3xl font-bold text-center'>
             Tendências
           </h2>
         </div>
 
-        <div>
-          <Image
-            unoptimized
-            alt='Ilustração de uma pessoa escrevendo em um quadro'
-            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-            height={36}
-            width={36}
-            className='w-full aspect-square rounded-lg object-cover border-2'
-          />
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 w-full'>
+          {fakePosts.map(({ title, date, image, slug }, index) =>
+            <HighlightPost
+              key={index}
+              title={title}
+              date={date}
+              image={image}
+              slug={slug}
+              index={index + 1}
+            />)}
         </div>
       </section>
 
