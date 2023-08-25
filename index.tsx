@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Outfit } from 'next/font/google'
-import { Button } from '@mantine/core';
 import Head from 'next/head';
+import { Button } from './components/ui/button';
 
 const outfit = Outfit({ subsets: ['latin'] })
 
@@ -23,7 +23,7 @@ export default function Home() {
           <p className='text-xs max-w-lg mb-4'>
             Não deixe que a tecnologia complicada atrapalhe sua criatividade e produtividade. Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
-          <Button className={outfit.className} color='green' size='md'>
+          <Button className={outfit.className} color='green'>
             Comece a Ler
           </Button>
         </div>

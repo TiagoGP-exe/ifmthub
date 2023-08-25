@@ -2,9 +2,9 @@ import Image from 'next/image'
 
 const colorsHighlight = {
   1: 'text-yellow-500',
-  2: 'text-gray-500',
+  2: 'text-gray-400',
   3: 'text-yellow-700',
-  4: 'text-gray-400',
+  4: 'text-gray-500',
 }
 
 const returnColorByIndex = (index: unknown) => {
@@ -15,7 +15,7 @@ const returnColorByIndex = (index: unknown) => {
     return colorsHighlight[color]
   }
 
-  return 'text-gray-400'
+  return colorsHighlight[4]
 }
 
 export interface HighlightPostProps {
@@ -29,7 +29,7 @@ export interface HighlightPostProps {
 const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) => (
   <div onClick={() => console.log(slug)} className='flex flex-col items-start max-w-xs cursor-pointer'>
     <div className='flex items-center justify-center gap-x-4'>
-      <h2 className={`text-2xl font-bold text-yellow-500 ${returnColorByIndex(index)}`}>
+      <h2 className={`text-2xl font-bold  ${returnColorByIndex(index)}`}>
         {index}º
       </h2>
       <Image
@@ -40,16 +40,16 @@ const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) 
         width={36}
         className="object-cover rounded-md"
       />
-      <h1 className='text-xl'>
+      <h1 className='text-xl font-heading'>
         Pamela Currey
       </h1>
     </div>
 
-    <span className='text-lg text-ellipsis font-bold '>
+    <p className='text-xl text-ellipsis font-bold py-4'>
       {title}
-    </span>
+    </p>
 
-    <span className='text-sm opacity-70 mt-4'>
+    <span className='text-sm opacity-70 '>
       {new Date(date).toLocaleDateString('pt-BR', {
         day: 'numeric',
         month: 'long',

@@ -1,5 +1,7 @@
-import { useMantineColorScheme } from '@mantine/core'
+"use client"
+
 import { motion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 const icon = (color: string) => ({
   hidden: {
     pathLength: 0,
@@ -12,9 +14,13 @@ const icon = (color: string) => ({
 })
 
 const Logo = () => {
-  const { colorScheme } = useMantineColorScheme()
+  const { theme, systemTheme, setTheme } = useTheme()
 
-  const color = colorScheme === 'dark' ? '#ffffff' : '#000000'
+  const correctTheme =
+    (theme === "system" ? systemTheme : theme === "dark" ? "dark" : "light") ??
+    "dark"
+
+  const color = correctTheme === "light" ? '#000000' : '#ffffff'
 
   return (
     <svg width="180" height="26" viewBox="0 0 180 26" fill="none" xmlns="http://www.w3.org/2000/svg">

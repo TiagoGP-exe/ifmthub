@@ -1,14 +1,14 @@
+"use client"
+
 import Image from 'next/image'
-import { Button } from '@mantine/core';
 import Head from 'next/head';
-import HeaderNav from './components/HeaderNav';
 import { TrendingUp } from 'lucide-react';
-import HighlightPost from './components/HighlightPost';
 
 import { Outfit } from 'next/font/google'
-
+import HighlightPost from '../components/HighlightPost';
+import { HeaderNav } from '../components/header-nav';
+import { Button } from '../components/ui/button';
 const outfit = Outfit({ subsets: ['latin'] })
-
 
 
 const fakePosts = [{
@@ -63,14 +63,14 @@ export default function Home() {
       </Head>
 
       <div className='flex-col-reverse md:flex-row flex items-start px-8 md:gap-8 justify-center max-w-screen-xl '>
-        <div className='w-full md:w-1/2'>
-          <h1 className=' text-5xl'>
+        <div className='flex flex-col w-full md:w-1/2 gap-3 items-start'>
+          <h1 className='text-4xl text-center mt-4 md:text-start md:text-5xl font-heading lg:text-6xl'>
             Compartilhe suas ideias facilmente
           </h1>
-          <p className='text-xs max-w-lg mb-4'>
-            Não deixe que a tecnologia complicada atrapalhe sua criatividade e produtividade. Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
+          <p className='text-center md:text-start text-sm opacity-70 md:max-w-sm px-10 md:pl-0 mb-2'>
+            Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
-          <Button color='green' size='md'>
+          <Button className='mx-auto md:mx-0' variant="primary">
             Comece a Ler
           </Button>
         </div>
@@ -86,15 +86,15 @@ export default function Home() {
         </div>
       </div>
 
-      <section className='flex flex-col w-full items-start max-w-screen-xl p-8'>
-        <div className='flex items-center gap-x-4 justify-center'>
+      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl p-8'>
+        <div className='flex items-center gap-x-4 justify-center mb-8'>
           <TrendingUp size={32} />
-          <h2 className='text-3xl font-bold text-center'>
+          <h2 className='text-3xl text-center font-heading '>
             Tendências
           </h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 w-full'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 w-full place-items-center md:place-items-start'>
           {fakePosts.map(({ title, date, image, slug }, index) =>
             <HighlightPost
               key={index}
