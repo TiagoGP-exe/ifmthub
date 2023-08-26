@@ -7,7 +7,8 @@ import { TrendingUp } from 'lucide-react';
 import { Outfit } from 'next/font/google'
 import HighlightPost from '../components/HighlightPost';
 import { HeaderNav } from '../components/header-nav';
-import { Button } from '../components/ui/button';
+import { Button, buttonVariants } from '../components/ui/button';
+import Link from 'next/link';
 const outfit = Outfit({ subsets: ['latin'] })
 
 
@@ -45,10 +46,7 @@ const fakePosts = [{
   image: '/illustration.svg',
   slug: 'como-criar-um-site-com-nextjs',
 }
-
-
 ]
-
 
 export default function Home() {
   const year = new Date().getFullYear()
@@ -63,16 +61,20 @@ export default function Home() {
       </Head>
 
       <div className='flex-col-reverse md:flex-row flex items-start md:gap-8 justify-center max-w-screen-xl md:w-11/12'>
-        <div className='flex flex-col w-full md:w-1/2 gap-3 items-start'>
-          <h1 className='text-4xl text-center mt-4 md:text-start md:text-5xl font-heading lg:text-6xl'>
+        <div className='flex flex-col w-full md:w-1/2 gap-3 items-center md:items-start'>
+          <h1 className='text-4xl text-center mt-4 md:text-start md:text-5xl font-heading lg:text-6xl max-w-xs  md:max-w-none'>
             Compartilhe suas ideias facilmente
           </h1>
-          <p className='text-center md:text-start text-sm opacity-70 md:max-w-sm px-10 md:pl-0 mb-2'>
+          <p className='text-center md:text-start text-sm opacity-70 md:max-w-sm px-10 md:pl-0 mb-2 max-w-xs'>
             Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
-          <Button className='mx-auto md:mx-0' variant="primary">
+
+          <Link className={buttonVariants({
+            variant: 'primary',
+            className: 'mx-auto md:mx-0',
+          })} href='/dashboard' >
             Comece a Ler
-          </Button>
+          </ Link>
         </div>
 
         <div className='w-full md:w-1/2'>

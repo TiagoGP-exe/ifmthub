@@ -1,9 +1,10 @@
 "use client"
 
 
+import Link from 'next/link'
 import Logo from './logo'
 import { ModeToggle } from './mode-toggle'
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
 
 export const HeaderNav = () => (
   <header className='flex items-center justify-center py-8 backdrop-blur-lg bg-background/75 dark:bg-background/90 fixed top-0 w-full z-10'>
@@ -13,9 +14,11 @@ export const HeaderNav = () => (
       <div className='flex items-center justify-center gap-2'>
         <ModeToggle />
 
-        <Button variant='outline' className='hidden sm:block' >
+        <Link className={buttonVariants({
+          variant: 'outline',
+        })} href='/dashboard' >
           Começar a Escrever
-        </Button>
+        </ Link>
       </div>
     </main>
   </header>
