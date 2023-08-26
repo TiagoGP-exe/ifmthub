@@ -4,13 +4,13 @@ import { ModeToggle } from './mode-toggle'
 
 export const HeaderDashboard = () => {
   return (
-    <header className='py-5 border-b flex items-center justify-between mb-8 sticky -top-2 bg-background/80 backdrop-blur-md px-8'>
+    <header className='py-5 border-b flex items-center justify-between mb-8 sticky -top-2 bg-background/80 backdrop-blur-md xs:px-8'>
       <ButtonIcon
         className='hidden md:block'
         name='add'
       />
 
-      <div className='flex items-center flex-1 md:flex-none gap-4 justify-between md:justify-center'>
+      <div className='flex flex-row-reverse md:flex-row items-center flex-1 md:flex-none gap-4 justify-between md:justify-center'>
         <ModeToggle />
 
         <div className='flex items-center gap-2 '>

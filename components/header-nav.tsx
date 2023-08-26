@@ -12,10 +12,13 @@ export const HeaderNav = () => (
       <Logo />
 
       <div className='flex items-center justify-center gap-2'>
-        <ModeToggle />
+        <div className='hidden sm:block'>
+          <ModeToggle />
+        </div>
 
         <Link className={buttonVariants({
           variant: 'outline',
+          className: 'min-w-[10rem]'
         })} href='/dashboard' >
           Começar a Escrever
         </ Link>

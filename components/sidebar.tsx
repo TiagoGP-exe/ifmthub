@@ -3,9 +3,29 @@
 import { useRouter } from 'next/navigation'
 import { ButtonIcon } from './button-icon'
 import Logo from './logo'
+import { useEffect, useState } from 'react'
 
 export const Sidebar = () => {
-  const { push } = useRouter()
+  const { push, prefetch } = useRouter()
+  const [changeLocation, setChangeLocation] = useState(location.pathname)
+
+  const routers = {
+    home: '/dashboard',
+    search: '/dashboard/search',
+    bookmark: '/dashboard/bookmark',
+    sketch: '/dashboard/sketch',
+  }
+
+  const setPath = (path: string) => {
+    setChangeLocation(path)
+    push(path)
+  }
+
+  useEffect(() => {
+    Object.entries(routers).forEach(([_, value]) => {
+      prefetch(value)
+    })
+  }, [])
 
   return (
     <>
@@ -13,25 +33,31 @@ export const Sidebar = () => {
 
         <Logo />
 
-
-        <div className='flex flex-col gap-y-12'>
+        <div className='flex flex-col gap-y-8'>
           <ButtonIcon
             name='home'
             size={28}
-            active
+            onClick={() => setPath(routers.home)}
+            active={changeLocation === routers.home || changeLocation === '/'}
           />
 
           <ButtonIcon
             name='search'
             size={28}
+            onClick={() => setPath(routers.search)}
+            active={changeLocation === routers.search}
           />
           <ButtonIcon
             name='bookmark'
             size={28}
+            onClick={() => setPath(routers.bookmark)}
+            active={changeLocation === routers.bookmark}
           />
           <ButtonIcon
             name='fileText'
             size={28}
+            onClick={() => setPath(routers.sketch)}
+            active={changeLocation === routers.sketch}
           />
 
         </div>
@@ -42,7 +68,7 @@ export const Sidebar = () => {
           size={28}
         />
       </aside>
-      <nav className='md:hidden flex items-center justify-center py-4 sticky mt-4 -bottom-3 pb-8  w-full bg-background/90 backdrop-blur-md border-t px-8' >
+      <nav className='md:hidden flex items-center justify-center py-4 sticky mt-4 -bottom-3 pb-8  w-full bg-background/90 backdrop-blur-md border-t xs:px-8' >
         <div className='flex items-center justify-around w-full'>
           <ButtonIcon
             name='home'
@@ -73,7 +99,7 @@ export const Sidebar = () => {
           active
           name='add'
           size={28}
-          className='absolute -top-5 mx-auto bg-foreground text-background rounded-full hover:bg-foreground/80'
+          className='absolute -top-5 mx-auto bg-foreground text-background rounded-full hover:bg-foreground/90 hover:text-background/90'
         />
       </nav>
     </>
