@@ -62,7 +62,7 @@ export default function Home() {
         <title>Home</title>
       </Head>
 
-      <div className='flex-col-reverse md:flex-row flex items-start px-8 md:gap-8 justify-center max-w-screen-xl '>
+      <div className='flex-col-reverse md:flex-row flex items-start md:gap-8 justify-center max-w-screen-xl md:w-11/12'>
         <div className='flex flex-col w-full md:w-1/2 gap-3 items-start'>
           <h1 className='text-4xl text-center mt-4 md:text-start md:text-5xl font-heading lg:text-6xl'>
             Compartilhe suas ideias facilmente
@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl p-8'>
+      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl md:w-11/12'>
         <div className='flex items-center gap-x-4 justify-center mb-8'>
           <TrendingUp size={32} />
           <h2 className='text-3xl text-center font-heading '>
