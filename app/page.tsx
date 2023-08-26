@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl md:w-11/12'>
+      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl md:w-11/12 mt-10'>
         <div className='flex items-center gap-x-4 justify-center mb-8'>
           <TrendingUp size={32} />
           <h2 className='text-3xl text-center font-heading '>
