@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
 export const Sidebar = () => {
   const { push, prefetch } = useRouter()
-  const [changeLocation, setChangeLocation] = useState(location.pathname)
+  const [changeLocation, setChangeLocation] = useState("")
 
   const routers = {
     home: '/dashboard',
@@ -25,6 +25,10 @@ export const Sidebar = () => {
     Object.entries(routers).forEach(([_, value]) => {
       prefetch(value)
     })
+
+    if (window !== undefined) {
+      setChangeLocation(location.pathname)
+    }
   }, [])
 
   return (
