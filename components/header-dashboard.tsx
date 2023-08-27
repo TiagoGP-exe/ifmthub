@@ -14,7 +14,7 @@ export const HeaderDashboard = () => {
         <ModeToggle />
 
         <div className='flex items-center gap-2 '>
-          <Image alt='profile' src='/avatar-1.png' width={36} height={36} className='rounded-md object-cover aspect-square border-2 border-foreground' />
+          <Image alt='profile' src='/avatar-1.png' width={36} height={36} className='rounded-md object-cover aspect-square border-2 border-foreground bg-foreground' />
           <div className='flex flex-col'>
             <span className='text-[0.6rem] opacity-70 '>Bem vindo de volta </span>
             <p className='leading-5  text-lg font-bold'>PAMELA CURREY</p>
