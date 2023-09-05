@@ -4,7 +4,7 @@
 import Link from 'next/link'
 import Logo from './logo'
 import { ModeToggle } from './mode-toggle'
-import { Button, buttonVariants } from './ui/button'
+import { buttonVariants } from './ui/button'
 
 export const HeaderNav = () => (
   <header className='flex items-center justify-center py-8 backdrop-blur-lg bg-background/75 dark:bg-background/90 fixed top-0 w-full z-10'>

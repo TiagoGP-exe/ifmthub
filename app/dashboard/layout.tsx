@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import { ButtonIcon } from '../../components/button-icon'
-import { ModeToggle } from '../../components/mode-toggle'
 import { Sidebar } from '../../components/sidebar'
 import { HeaderDashboard } from '../../components/header-dashboard'
 

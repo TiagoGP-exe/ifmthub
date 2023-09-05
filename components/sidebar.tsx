@@ -77,25 +77,32 @@ export const Sidebar = () => {
           <ButtonIcon
             name='home'
             size={24}
-            active
             paddingSize='sm'
+            onClick={() => setPath(routers.home)}
+            active={changeLocation === routers.home || changeLocation === '/'}
           />
 
           <ButtonIcon
             name='search'
             size={24}
             paddingSize='sm'
+            onClick={() => setPath(routers.search)}
+            active={changeLocation === routers.search}
           />
 
           <ButtonIcon
             name='bookmark'
             size={24}
             paddingSize='sm'
+            onClick={() => setPath(routers.bookmark)}
+            active={changeLocation === routers.bookmark}
           />
           <ButtonIcon
             name='fileText'
             size={24}
             paddingSize='sm'
+            onClick={() => setPath(routers.sketch)}
+            active={changeLocation === routers.sketch}
           />
         </div>
 
