@@ -7,7 +7,7 @@ import { TrendingUp } from 'lucide-react';
 import { Outfit } from 'next/font/google'
 import HighlightPost from '../components/HighlightPost';
 import { HeaderNav } from '../components/header-nav';
-import { Button, buttonVariants } from '../components/ui/button';
+import { buttonVariants } from '../components/ui/button';
 import Link from 'next/link';
 const outfit = Outfit({ subsets: ['latin'] })
 

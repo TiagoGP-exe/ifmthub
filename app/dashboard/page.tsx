@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
 
-    <main className='xs:px-8 flex flex-col gap-y-8'>
+    <main className='px-4 xs:px-8 flex flex-col gap-y-8'>
       {
         hundred.map((_, index) => (
           <div key={index} className='flex flex-col gap-4 w-full'>
