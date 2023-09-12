@@ -4,9 +4,13 @@ import Image from 'next/image'
 import { ButtonIcon } from './button-icon'
 import { ModeToggle } from './mode-toggle'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export const HeaderDashboard = () => {
-  const { push } = useRouter()
+  const { push, prefetch } = useRouter()
+  useEffect(() => {
+    prefetch("/editor/new")
+  }, [prefetch])
 
   return (
     <header className='bg-background/80 xs:px-8 sticky -top-2 mb-8 flex items-center justify-between border-b px-4 py-5 backdrop-blur-md'>
