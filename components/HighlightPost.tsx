@@ -27,7 +27,7 @@ export interface HighlightPostProps {
 }
 
 const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) => (
-  <div onClick={() => console.log(slug)} className='flex flex-col items-start max-w-xs cursor-pointer'>
+  <div onClick={() => console.log(slug)} className='flex max-w-xs cursor-pointer flex-col items-start'>
     <div className='flex items-center justify-center gap-x-4'>
       <h2 className={`text-2xl font-bold  ${returnColorByIndex(index)}`}>
         {index}º
@@ -38,14 +38,14 @@ const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) 
         src={image}
         height={36}
         width={36}
-        className="object-cover rounded-md"
+        className="rounded-md object-cover"
       />
-      <h1 className='text-xl font-heading'>
+      <h1 className='font-heading text-xl'>
         Pamela Currey
       </h1>
     </div>
 
-    <p className='text-xl text-ellipsis font-bold py-4'>
+    <p className='text-ellipsis py-4 text-xl font-bold'>
       {title}
     </p>
 

@@ -8,7 +8,7 @@ export default function Home() {
   const hundred = Array.from(Array(100).keys())
 
   return (
-    <main className='px-4 xs:px-8 flex flex-col gap-y-8'>
+    <main className='xs:px-8 flex flex-col gap-y-8 px-4'>
       <h1 className='font-heading'>
         Sketch
       </h1>

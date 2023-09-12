@@ -53,19 +53,19 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center md:justify-between pt-32  w-full z-10 ${outfit.className}`}
+      className={`z-10 flex min-h-screen w-full flex-col items-center  pt-32 md:justify-between ${outfit.className}`}
     >
       <HeaderNav />
       <Head>
         <title>Home</title>
       </Head>
 
-      <div className='flex-col-reverse md:flex-row flex items-start md:gap-8 justify-center max-w-screen-xl md:w-11/12'>
-        <div className='flex flex-col w-full md:w-1/2 gap-3 items-center md:items-start'>
-          <h1 className='text-4xl text-center mt-4 md:text-start md:text-5xl font-heading lg:text-6xl max-w-xs  md:max-w-none'>
+      <div className='flex max-w-screen-xl flex-col-reverse items-start justify-center md:w-11/12 md:flex-row md:gap-8'>
+        <div className='flex w-full flex-col items-center gap-3 md:w-1/2 md:items-start'>
+          <h1 className='font-heading mt-4 max-w-xs text-center text-4xl md:max-w-none md:text-start md:text-5xl  lg:text-6xl'>
             Compartilhe suas ideias facilmente
           </h1>
-          <p className='text-center md:text-start text-sm opacity-70 md:max-w-sm px-10 md:pl-0 mb-2 max-w-xs'>
+          <p className='mb-2 max-w-xs px-10 text-center text-sm opacity-70 md:max-w-sm md:pl-0 md:text-start'>
             Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
 
@@ -83,20 +83,20 @@ export default function Home() {
             src="/illustration.svg"
             height={400}
             width={600}
-            className='w-full aspect-video object-fill max-h-60 sm:max-h-96 md:max-h-none'
+            className='aspect-video max-h-60 w-full object-fill sm:max-h-96 md:max-h-none'
           />
         </div>
       </div>
 
-      <section className='flex flex-col w-full justify-center md:items-start max-w-screen-xl md:w-11/12 mt-10'>
-        <div className='flex items-center gap-x-4 justify-center mb-8'>
+      <section className='mt-10 flex w-full max-w-screen-xl flex-col justify-center md:w-11/12 md:items-start'>
+        <div className='mb-8 flex items-center justify-center gap-x-4'>
           <TrendingUp size={32} />
-          <h2 className='text-3xl text-center font-heading '>
+          <h2 className='font-heading text-center text-3xl '>
             Tendências
           </h2>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 w-full place-items-center md:place-items-start'>
+        <div className='mb-8 grid w-full grid-cols-1 place-items-center gap-8 md:grid-cols-2 md:place-items-start lg:grid-cols-3'>
           {fakePosts.map(({ title, date, image, slug }, index) =>
             <HighlightPost
               key={index}
@@ -109,8 +109,8 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className='bg-black/10 w-full font-semibold  h-14 flex justify-center items-center  '>
-        <p className='opacity-60 text-center'>Copyright © {year} IFMT HUB. All rights reserved.</p>
+      <footer className='flex h-14 w-full  items-center justify-center bg-black/10 font-semibold  '>
+        <p className='text-center opacity-60'>Copyright © {year} IFMT HUB. All rights reserved.</p>
       </footer>
     </main >
   )

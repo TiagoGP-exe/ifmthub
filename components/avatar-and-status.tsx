@@ -95,12 +95,12 @@ export const AvatarAndStatus: FC<StatusProps> = ({
       </DropdownMenuContent>
     </DropdownMenu>
     <div className="group ">
-      <p className="font-heading leading-tight text-foreground">{name}</p>
-      <p className="text-xs leading-none text-foreground/40 transition-all duration-200 group-hover:hidden">
+      <p className="font-heading text-foreground leading-tight">{name}</p>
+      <p className="text-foreground/40 text-xs leading-none transition-all duration-200 group-hover:hidden">
         {statusEnum[status].name}
       </p>
 
-      <p className="hidden translate-y-10 text-xs leading-none text-foreground/40 transition-all duration-500 group-hover:block  group-hover:translate-y-0">
+      <p className="text-foreground/40 hidden translate-y-10 text-xs leading-none transition-all duration-500 group-hover:block  group-hover:translate-y-0">
         @{username}
       </p>
     </div>

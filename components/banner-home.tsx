@@ -24,7 +24,7 @@ export const BannerHome = () => {
       />
 
       <div className="absolute left-0 top-0 h-full  w-full blur-3xl ">
-        <div className="clip-trapezoid h-full w-full dark:bg-primary "></div>
+        <div className="clip-trapezoid dark:bg-primary h-full w-full "></div>
       </div>
     </div>
   )

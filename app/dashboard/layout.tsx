@@ -7,10 +7,10 @@ interface DashboardLayoutProps {
 }
 
 export default function Dashboard({ children }: DashboardLayoutProps) {
-  return <div className="flex flex-col-reverse md:flex-row items-center justify-center min-h-screen bg-background">
+  return <div className="bg-background flex min-h-screen flex-col-reverse items-center justify-center md:flex-row">
     <Sidebar />
 
-    <div className='flex flex-col min-h-screen max-w-screen-md w-full'>
+    <div className='flex min-h-screen w-full max-w-screen-md flex-col'>
       <HeaderDashboard />
       {children}
     </div>

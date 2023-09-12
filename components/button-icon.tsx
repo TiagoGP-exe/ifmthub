@@ -12,7 +12,7 @@ interface ButtonIconProps {
   paddingSize?: "default" | "sm" | "lg"
 }
 
-const buttonIconVariants = cva(" flex  justify-center items-center  hover:bg-accent active:translate-y-0.5 transition-all hover:text-foreground rounded", {
+const buttonIconVariants = cva(" flex  justify-center items-center  md:hover:bg-accent active:translate-y-0.5 transition-all hover:text-foreground rounded", {
   variants: {
     variant: {
       active: "",

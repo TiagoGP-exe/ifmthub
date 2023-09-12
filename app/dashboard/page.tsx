@@ -9,25 +9,24 @@ export default function Home() {
 
   return (
 
-    <main className='px-4 xs:px-8 flex flex-col gap-y-8'>
+    <main className='xs:px-8 flex flex-col gap-y-8 px-4'>
       {
         hundred.map((_, index) => (
-          <div key={index} className='flex flex-col gap-4 w-full'>
+          <div key={index} className='flex w-full flex-col gap-4'>
             <div className='flex flex-col gap-2'>
               <div className='flex items-center gap-2'>
-                <div className='w-10 h-10 bg-gray-300 rounded-full' />
+                <div className='h-10 w-10 rounded-full bg-gray-300' />
                 <div className='flex flex-col'>
                   <span className='text-sm font-medium'>Nome do Autor</span>
                   <span className='text-xs text-gray-400'>2 de agosto de 2021</span>
                 </div>
               </div>
               <h1 className='text-2xl font-bold'>Como criar um site com Next.js</h1>
-              <p className=
-                'text-gray-500 text-sm'>
+              <p className='text-sm text-gray-500'>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptate.
               </p>
             </div>
-            <div className='w-full h-60 bg-gray-300 rounded-md' />
+            <div className='h-60 w-full rounded-md bg-gray-300' />
           </div>
         ))
       }

@@ -5,16 +5,16 @@ import { ButtonIcon } from './button-icon'
 import Logo from './logo'
 import { useEffect, useState } from 'react'
 
+const routers = {
+  home: '/dashboard',
+  search: '/dashboard/search',
+  bookmark: '/dashboard/bookmark',
+  sketch: '/dashboard/sketch',
+}
+
 export const Sidebar = () => {
   const { push, prefetch } = useRouter()
   const [changeLocation, setChangeLocation] = useState("")
-
-  const routers = {
-    home: '/dashboard',
-    search: '/dashboard/search',
-    bookmark: '/dashboard/bookmark',
-    sketch: '/dashboard/sketch',
-  }
 
   const setPath = (path: string) => {
     setChangeLocation(path)
@@ -29,11 +29,11 @@ export const Sidebar = () => {
     if (window !== undefined) {
       setChangeLocation(location.pathname)
     }
-  }, [])
+  }, [prefetch])
 
   return (
     <>
-      <aside className='md:flex flex-col items-end justify-between min-h-screen py-7 border-r px-4 sticky top-0 bottom-0 hidden' >
+      <aside className='sticky inset-y-0 hidden min-h-screen flex-col items-end justify-between border-r px-4 py-7 md:flex' >
 
         <Logo />
 
@@ -72,8 +72,8 @@ export const Sidebar = () => {
           size={28}
         />
       </aside>
-      <nav className='md:hidden flex items-center justify-center py-4 sticky mt-4 -bottom-3 pb-8  w-full bg-background/90 backdrop-blur-md border-t xs:px-8' >
-        <div className='flex items-center justify-around w-full'>
+      <nav className='bg-background/90 xs:px-8 sticky -bottom-3 mt-4 flex w-full items-center justify-center  border-t py-4 pb-8 backdrop-blur-md md:hidden' >
+        <div className='flex w-full items-center justify-around'>
           <ButtonIcon
             name='home'
             size={24}
@@ -110,7 +110,7 @@ export const Sidebar = () => {
           active
           name='add'
           size={28}
-          className='absolute -top-5 mx-auto bg-foreground text-background rounded-full hover:bg-foreground/90 hover:text-background/90'
+          className='bg-foreground text-background hover:bg-foreground/90 hover:text-background/90 absolute -top-5 mx-auto rounded-full'
         />
       </nav>
     </>
