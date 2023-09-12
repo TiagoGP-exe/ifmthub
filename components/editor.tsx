@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import EditorJS from "@editorjs/editorjs"
 import { useForm } from "react-hook-form"
 import TextareaAutosize from "react-textarea-autosize"
-import * as z from "zod"
 
 import "../styles/editor.css"
 import { toast } from './ui/use-toast'

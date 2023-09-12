@@ -110,6 +110,7 @@ export const Sidebar = () => {
           active
           name='add'
           size={28}
+          onClick={() => push("editor/new")}
           className='bg-foreground text-background hover:bg-foreground/90 hover:text-background/90 absolute -top-5 mx-auto rounded-full'
         />
       </nav>
