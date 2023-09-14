@@ -1,35 +1,54 @@
 "use client"
 
-import { useRouter } from 'next/navigation'
+import { Card } from '../../components/card'
+import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
+
+const date = new Date(Date.UTC(2020, 11, 20, 3, 23, 16, 738));
+
+const array = Array.from(Array(100).keys())
 
 export default function Home() {
-  const { push } = useRouter()
+  const [arrayTotal, setArrayTotal] = useState(array.slice(0, 10))
+  const [isLoading, setIsLoading] = useState(false)
 
-  const hundred = Array.from(Array(100).keys())
+  const refreshPosts = useRef(null)
+  const anotherIsInView = useInView(refreshPosts)
+
+  useEffect(() => {
+    if (anotherIsInView) {
+      setIsLoading(true)
+      const timer = setTimeout(() => {
+        setArrayTotal(array.slice(0, arrayTotal.length + 10))
+        setIsLoading(false)
+      }, 1500)
+
+      return () => clearTimeout(timer)
+    }
+  }, [anotherIsInView, arrayTotal.length])
 
   return (
 
     <main className='xs:px-8 flex flex-col gap-y-8 px-4'>
       {
-        hundred.map((_, index) => (
-          <div key={index} className='flex w-full flex-col gap-4'>
-            <div className='flex flex-col gap-2'>
-              <div className='flex items-center gap-2'>
-                <div className='h-10 w-10 rounded-full bg-gray-300' />
-                <div className='flex flex-col'>
-                  <span className='text-sm font-medium'>Nome do Autor</span>
-                  <span className='text-xs text-gray-400'>2 de agosto de 2021</span>
-                </div>
-              </div>
-              <h1 className='text-2xl font-bold'>Como criar um site com Next.js</h1>
-              <p className='text-sm text-gray-500'>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptate.
-              </p>
-            </div>
-            <div className='h-60 w-full rounded-md bg-gray-300' />
-          </div>
+        arrayTotal.map((_, index) => (
+          <Card key={index}
+            date={new Intl.DateTimeFormat('pt-BR').format(date)}
+            title='Dicas de Estudo Eficientes para o Sucesso Acadêmico'
+            authorName='Amanda Silva'
+            profileImage='/avatar-1.png'
+            img={`https://source.unsplash.com/random/640x${index + 480}`}
+            description='Descubra as melhores estratégias de estudo que me ajudaram a conquistar notas excelentes enquanto equilibrava minha vida acadêmica agitada...'
+          />
         ))
       }
+      {isLoading && (
+        <div className="flex items-center justify-center py-2">
+          <Loader2 className='animate-spin' size='24' />
+        </div>
+      )}
+      <div ref={refreshPosts} />
     </main>
   )
 }

@@ -13,6 +13,8 @@ import { cn } from '../lib/utils'
 import { buttonVariants } from './ui/button'
 import { Icons } from './icons'
 import { Input } from './ui/input'
+import { ImageIcon } from 'lucide-react'
+import { ImageInput } from './Image-input'
 interface EditorProps {
   post: Pick<any, "id" | "title" | "content" | "published">
 }
@@ -142,9 +144,7 @@ export function Editor({ post }: EditorProps) {
           </button>
         </div>
         <div className="prose prose-stone dark:prose-invert mx-auto max-w-[90%] md:max-w-[800px]">
-          <div className='bg-foreground-soft/70 mb-4 h-56 w-full rounded'>
-
-          </div>
+          <ImageInput className='mb-4 w-full' />
           <Input
             title='asdasd'
             id="tags"
