@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       screens: {
-        xs: "480px"
+        xs: "480px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -82,6 +82,9 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      height: {
+        screen: ["100vh /* fallback for Opera, IE and etc. */", "100dvh"],
       },
     },
   },
