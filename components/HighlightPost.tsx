@@ -38,7 +38,7 @@ const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) 
         src={image}
         height={36}
         width={36}
-        className="rounded-md object-cover"
+        className="ring-foreground aspect-square rounded-md object-cover ring-2"
       />
       <h1 className='font-heading text-xl'>
         Pamela Currey

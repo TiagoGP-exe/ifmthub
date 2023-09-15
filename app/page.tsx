@@ -15,35 +15,35 @@ const outfit = Outfit({ subsets: ['latin'] })
 const fakePosts = [{
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 }, {
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 },
 {
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 },
 {
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 },
 {
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 }, {
   title: 'Como criar um site com Next.js',
   date: '2021-08-01',
-  image: '/illustration.svg',
+  image: '/avatar-1.png',
   slug: 'como-criar-um-site-com-nextjs',
 }
 ]
