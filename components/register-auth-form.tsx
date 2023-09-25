@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useSearchParams } from "next/navigation"
 import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { registerAuthSchema } from '../lib/validations/auth'
@@ -9,13 +8,13 @@ import { toast } from './ui/use-toast'
 import { cn } from '../lib/utils'
 import { Input } from './ui/input'
 import { useForm } from 'react-hook-form'
-import { EyeIcon, Loader2Icon } from 'lucide-react'
-import { EyeClosedIcon } from '@radix-ui/react-icons'
+import { Loader2Icon } from 'lucide-react'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { Button } from './ui/button'
 import { DatePicker } from './ui/date-picker'
 import { format } from 'date-fns'
-import { signIn, signUp } from '../lib/services/auth'
+import { signUp } from '../lib/services/auth'
+import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons'
 
 interface RegisterAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -35,7 +34,6 @@ const genders = [
 export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps) {
   const {
     register,
-    handleSubmit,
     setValue,
     formState: { errors },
     watch
@@ -44,7 +42,6 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
   })
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const searchParams = useSearchParams()
 
   const [eyesIsOpen, setEyesIsOpen] = React.useState({
     password: false,
@@ -52,8 +49,6 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
   })
 
   const values = watch()
-  console.log(values)
-
 
   async function onSubmit(data: FormData) {
     setIsLoading(true)
@@ -103,7 +98,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
           error={errors.email?.message}
         />
         <div>
-          <Select onValueChange={(e) => setValue("gender", e)} defaultValue={watch("gender")}>
+          <Select onValueChange={(e: any) => setValue("gender", e)} defaultValue={watch("gender")}>
             <SelectTrigger className={cn(
               !watch("gender") && errors.gender?.message && "border-red-500 text-red-500",
             )}>
@@ -129,7 +124,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
         placeholder="Senha"
         rightIcon={
           eyesIsOpen.password ?
-            <EyeIcon onClick={() => handleEyeClick("password")} /> :
+            <EyeOpenIcon onClick={() => handleEyeClick("password")} /> :
             <EyeClosedIcon onClick={() => handleEyeClick("password")} />
         }
         type={
@@ -143,10 +138,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
 
       <Button
         className="w-full "
-        onClick={() => {
-          onSubmit(values)
-          console.log(errors)
-        }}
+        onClick={() => onSubmit(values)}
         disabled={isLoading}
       >
         {isLoading && <Loader2Icon className="mr-2 animate-spin" />}

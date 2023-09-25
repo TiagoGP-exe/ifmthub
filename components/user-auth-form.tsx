@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-import { useSearchParams } from "next/navigation"
 import * as z from "zod"
 import { userAuthSchema } from '../lib/validations/auth'
 import { toast } from './ui/use-toast'
@@ -10,8 +9,8 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, Loader2 } from 'lucide-react'
-import { EyeClosedIcon } from '@radix-ui/react-icons'
+import { Loader2 } from 'lucide-react'
+import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons'
 import { useAuth } from './use-auth'
 import { useRouter } from 'next/navigation'
 
@@ -74,7 +73,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         placeholder="Senha"
         rightIcon={
           eyesIsOpen.password ?
-            <EyeIcon onClick={() => handleEyeClick("password")} /> :
+            <EyeOpenIcon onClick={() => handleEyeClick("password")} /> :
             <EyeClosedIcon onClick={() => handleEyeClick("password")} />
         }
         type={
