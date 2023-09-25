@@ -13,14 +13,12 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   const { push, prefetch } = useRouter()
 
   useEffect(() => {
-
     prefetch("/register")
     prefetch("/login")
 
-
-
     if (user) {
       push("/dashboard")
+
     }
   }, [push, user, prefetch])
 
