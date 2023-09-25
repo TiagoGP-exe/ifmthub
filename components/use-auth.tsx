@@ -6,39 +6,12 @@ import { api } from '../lib/api';
 
 export interface UserProps {
   idUser: number
-  courses: Course[]
+  email: string
   fullName: string
   gender: string
   dateCreated: string
   birthDate: string
   urlImgProfile: string
-  status: boolean
-  password: string
-  email: string
-  roles: Role[]
-  enabled: boolean
-  accountConfirmed: boolean
-  authorities: Authority[]
-  username: string
-  accountNonExpired: boolean
-  accountNonLocked: boolean
-  credentialsNonExpired: boolean
-}
-
-export interface Course {
-  idCourse: number
-  description: string
-  dateCreated: string
-  status: boolean
-}
-
-export interface Role {
-  id: number
-  authority: string
-}
-
-export interface Authority {
-  authority: string
 }
 
 
@@ -71,11 +44,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const fetchUser = async () => {
     try {
-      const { data } = await api.get('/user'); // Replace with your API endpoint.
-      if (data) {
-        const userData = data[0]
+      const { data } = await api.get('/me');
 
-        setUser(userData);
+      if (data) {
+        setUser(data);
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
