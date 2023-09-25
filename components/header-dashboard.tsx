@@ -5,9 +5,12 @@ import { ButtonIcon } from './button-icon'
 import { ModeToggle } from './mode-toggle'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { useAuth } from './use-auth'
 
 export const HeaderDashboard = () => {
   const { push, prefetch } = useRouter()
+  const { user } = useAuth()
+
   useEffect(() => {
     prefetch("/editor/new")
   }, [prefetch])
@@ -24,10 +27,12 @@ export const HeaderDashboard = () => {
         <ModeToggle />
 
         <div className='flex items-center gap-2 '>
-          <Image alt='profile' src='/avatar-1.png' width={36} height={36} className='border-foreground bg-foreground aspect-square rounded-md border-2 object-cover' />
+          <Image unoptimized alt='profile' src={user?.urlImgProfile ?? ""} width={36} height={36} className='border-foreground bg-foreground aspect-square rounded-md border-2 object-cover' />
           <div className='flex flex-col'>
-            <span className='text-[0.6rem] opacity-70'>Bem vindo de volta </span>
-            <p className='text-lg  font-bold leading-5'>PAMELA CURREY</p>
+            <span className='text-[0.6rem] opacity-70'>{
+              user?.gender === "M" ? "Bem vindo de volta" : "Bem vinda de volta"
+            }</span>
+            <p className='text-lg  font-bold leading-5'>{user?.fullName}</p>
           </div>
         </div>
       </div>

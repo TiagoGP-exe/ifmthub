@@ -9,6 +9,7 @@ import HighlightPost from '../components/HighlightPost';
 import { HeaderNav } from '../components/header-nav';
 import { buttonVariants } from '../components/ui/button';
 import Link from 'next/link';
+import { useAuth } from '../components/use-auth';
 const outfit = Outfit({ subsets: ['latin'] })
 
 
@@ -50,6 +51,7 @@ const fakePosts = [{
 
 export default function Home() {
   const year = new Date().getFullYear()
+  const { user } = useAuth()
 
   return (
     <main
@@ -70,9 +72,10 @@ export default function Home() {
           </p>
 
           <Link className={buttonVariants({
-            variant: 'primary',
             className: 'mx-auto md:mx-0',
-          })} href='/dashboard' >
+          })} href={
+            user?.email ? '/dashboard' : '/login'
+          } >
             Comece a Ler
           </ Link>
         </div>

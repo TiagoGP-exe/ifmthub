@@ -69,6 +69,7 @@ export const metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: `${siteConfig.url}/site.webmanifest`,
+  metadataBase: siteConfig.url,
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {

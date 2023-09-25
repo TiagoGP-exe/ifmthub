@@ -2,7 +2,7 @@
 
 import { FC, ReactNode } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { SessionProvider } from "next-auth/react"
+import { AuthProvider } from './use-auth'
 
 interface LayoutProps {
   children: ReactNode
@@ -13,7 +13,9 @@ const Providers: FC<LayoutProps> = ({ children }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider>{children}</SessionProvider>
+      <AuthProvider>
+        {children}
+      </AuthProvider>
     </QueryClientProvider>
   )
 }

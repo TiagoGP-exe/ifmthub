@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ButtonIcon } from './button-icon'
 import Logo from './logo'
 import { useEffect, useState } from 'react'
+import { useAuth } from './use-auth'
 
 const routers = {
   home: '/dashboard',
@@ -15,6 +16,8 @@ const routers = {
 export const Sidebar = () => {
   const { push, prefetch } = useRouter()
   const [changeLocation, setChangeLocation] = useState("")
+
+  const { logout } = useAuth()
 
   const setPath = (path: string) => {
     setChangeLocation(path)
@@ -68,7 +71,10 @@ export const Sidebar = () => {
 
         <ButtonIcon
           name='logout'
-          onClick={() => push('/')}
+          onClick={() => {
+            push('/');
+            logout()
+          }}
           size={28}
         />
       </aside>
