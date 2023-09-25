@@ -14,13 +14,13 @@ export default function Home() {
         <title>Home</title>
       </Head>
 
-      <div className='flex-col-reverse md:flex-row flex items-start md:gap-8 justify-center max-w-screen-xl'>
+      <div className='flex max-w-screen-xl flex-col-reverse items-start justify-center md:flex-row md:gap-8'>
 
         <div className='w-full md:w-1/2'>
-          <h1 className='text-white text-5xl'>
+          <h1 className='text-5xl text-white'>
             Compartilhe suas ideias facilmente
           </h1>
-          <p className='text-xs max-w-lg mb-4'>
+          <p className='mb-4 max-w-lg text-xs'>
             Não deixe que a tecnologia complicada atrapalhe sua criatividade e produtividade. Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
           <Button className={outfit.className} color='green'>
@@ -34,7 +34,7 @@ export default function Home() {
             src="/illustration.svg"
             height={400}
             width={600}
-            className='w-full aspect-video object-fill max-h-60 sm:max-h-96 md:max-h-none'
+            className='aspect-video max-h-60 w-full object-fill sm:max-h-96 md:max-h-none'
           />
         </div>
       </div>
