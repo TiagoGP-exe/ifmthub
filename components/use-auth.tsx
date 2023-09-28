@@ -19,6 +19,7 @@ interface AuthContextType {
   user: UserProps | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  isLoading: boolean;
 }
 
 interface AuthProviderProps {
@@ -41,8 +42,10 @@ export function useAuth() {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<UserProps | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
+    setIsLoading(true);
     try {
       const { data } = await api.get('/me');
 
@@ -51,6 +54,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
     } catch (error) {
       console.error('Error fetching user data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,9 +68,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   const login = async (email: string, password: string) => {
+    setIsLoading(true);
     try {
       const signInResult = await signIn(email, password)
-
 
       if (signInResult.token) {
         Cookies.set('authToken', signInResult.token, { expires: 7 });
@@ -76,6 +81,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } catch (error) {
       console.error('Error logging in:', error);
       return false
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -86,7 +93,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

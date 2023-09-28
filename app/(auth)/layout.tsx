@@ -9,18 +9,17 @@ interface AuthLayoutProps {
 }
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
-  const { user } = useAuth()
+  const { user, isLoading } = useAuth()
   const { push, prefetch } = useRouter()
 
   useEffect(() => {
     prefetch("/register")
     prefetch("/login")
 
-    if (user) {
+    if (user?.email && !isLoading) {
       push("/dashboard")
-
     }
-  }, [push, user, prefetch])
+  }, [push, user, prefetch, isLoading])
 
 
   return <div className="min-h-screen">{children}</div>

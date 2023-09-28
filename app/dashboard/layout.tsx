@@ -12,14 +12,14 @@ interface DashboardLayoutProps {
 }
 
 export default function Dashboard({ children }: DashboardLayoutProps) {
-  const { user } = useAuth()
+  const { user, isLoading } = useAuth()
   const { push } = useRouter()
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !isLoading) {
       push("/login")
     }
-  }, [push, user])
+  }, [isLoading, push, user])
 
   return user?.email ? (
     <div className="bg-background flex min-h-screen flex-col-reverse items-center justify-center md:flex-row">

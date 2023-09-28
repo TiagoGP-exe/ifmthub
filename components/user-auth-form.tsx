@@ -12,26 +12,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Loader2 } from 'lucide-react'
 import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons'
 import { useAuth } from './use-auth'
-import { useRouter } from 'next/navigation'
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 type FormData = z.infer<typeof userAuthSchema>
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const { login, user } = useAuth()
-  const { push } = useRouter()
+  const { login } = useAuth()
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [eyesIsOpen, setEyesIsOpen] = React.useState({
     password: false,
     confirmPassword: false
   })
-
-  React.useEffect(() => {
-    if (user) {
-      push('/dashboard')
-    }
-  }, [push, user])
 
   const {
     register,

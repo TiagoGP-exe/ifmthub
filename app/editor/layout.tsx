@@ -9,14 +9,14 @@ interface EditorProps {
 }
 
 export default function EditorLayout({ children }: EditorProps) {
-  const { user } = useAuth()
+  const { user, isLoading } = useAuth()
   const { push } = useRouter()
 
   useEffect(() => {
-    if (!user) {
+    if (!user?.email && !isLoading) {
       push("/login")
     }
-  }, [push, user])
+  }, [isLoading, push, user])
 
   return user?.email ? (
     <div className="container mx-auto grid items-start gap-10 py-8 ">
