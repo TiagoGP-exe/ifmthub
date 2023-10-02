@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import { FC } from 'react'
+import { Avatar } from './avatar-and-status'
+import { User } from 'lucide-react'
 
 interface CardProps {
   authorName: string
@@ -22,7 +24,18 @@ export const Card: FC<CardProps> = ({
   <div className='flex w-full flex-col gap-4'>
     <div className='flex flex-col gap-2'>
       <div className='flex items-center gap-2'>
-        <img src={profileImage} className='ring-foreground h-8 w-8 rounded-md bg-gray-300 object-cover ring-2' />
+        {profileImage ? <Image
+          unoptimized
+          src={profileImage}
+          width={36}
+          height={36}
+          alt='profile image'
+          className="ring-foreground bg-foreground aspect-square h-9 w-9 rounded-md object-cover ring-2"
+        /> :
+          <div className='ring-foreground flex h-9 w-9 items-center justify-center rounded-md ring-2'>
+            <User className="h-5 w-5" />
+          </div>
+        }
         <div className='flex flex-col'>
           <span className='font-heading text-sm'>{authorName}</span>
           <span className='text-xs text-gray-400'>{date}</span>

@@ -15,6 +15,8 @@ import { Icons } from './icons'
 import { Input } from './ui/input'
 import { ImageIcon } from 'lucide-react'
 import { ImageInput } from './Image-input'
+import { setPost } from '../lib/services/post'
+import { useAuth } from './use-auth'
 interface EditorProps {
   post: Pick<any, "id" | "title" | "content" | "published">
 }
@@ -22,11 +24,14 @@ interface EditorProps {
 type FormData = { tags: string, title: string }
 
 export function Editor({ post }: EditorProps) {
-  const { register, handleSubmit } = useForm<FormData>()
+  const { register, handleSubmit, getValues } = useForm<FormData>()
   const ref = React.useRef<EditorJS>()
   const router = useRouter()
   const [isSaving, setIsSaving] = React.useState<boolean>(false)
   const [isMounted, setIsMounted] = React.useState<boolean>(false)
+  const { user } = useAuth()
+
+
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
@@ -86,32 +91,39 @@ export function Editor({ post }: EditorProps) {
 
     const blocks = await ref.current?.save()
 
-    const response = await fetch(`/api/posts/${post.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    const tags = getValues("tags").split(" ")
+
+    try {
+      await setPost({
+        idAuthor: user?.idUser as number,
+        category: {
+          description: "test",
+        },
+        tags: tags.map(item => ({
+          description: item
+        })),
         title: data.title,
-        content: blocks,
-      }),
-    })
+        content: JSON.stringify(blocks),
+        urlImgPost: "",
+        subtitle: "test",
+      })
 
-    setIsSaving(false)
+      router.refresh()
 
-    if (!response?.ok) {
+      return toast({
+        description: "Your post has been saved.",
+      })
+
+    } catch (error) {
+
       return toast({
         title: "Something went wrong.",
         description: "Your post was not saved. Please try again.",
         variant: "destructive",
       })
+    } finally {
+      setIsSaving(false)
     }
-
-    router.refresh()
-
-    return toast({
-      description: "Your post has been saved.",
-    })
   }
 
   if (!isMounted) {
@@ -146,8 +158,6 @@ export function Editor({ post }: EditorProps) {
         <div className="prose prose-stone dark:prose-invert mx-auto max-w-[90%] md:max-w-[800px]">
           <ImageInput className='mb-4 w-full' />
           <Input
-            title='asdasd'
-            id="tags"
             {...register("tags")}
             placeholder='tags'
             className='mb-4'
@@ -160,7 +170,7 @@ export function Editor({ post }: EditorProps) {
             className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
             {...register("title")}
           />
-          <div id="editor" className="min-h-[500px] " />
+          <div id="editor" className="min-h-[50px] " />
           <p className="text-sm text-gray-500">
             Use{" "}
             <kbd className="bg-muted rounded-md border px-1 text-xs uppercase">

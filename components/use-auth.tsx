@@ -5,10 +5,11 @@ import { signIn } from '../lib/services/auth';
 import { api } from '../lib/api';
 
 export interface UserProps {
+  id: number;
   idUser: number
   email: string
   fullName: string
-  gender: string
+  gender: "M" | "F"
   dateCreated: string
   birthDate: string
   urlImgProfile: string

@@ -6,14 +6,18 @@ import { useRouter } from "next/navigation"
 import { HeaderDashboard } from "../../components/header-dashboard"
 import { Sidebar } from "../../components/sidebar"
 import { useAuth } from "../../components/use-auth"
+import { getPosts } from '../../lib/services/post'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
+
+
 export default function Dashboard({ children }: DashboardLayoutProps) {
   const { user, isLoading } = useAuth()
   const { push } = useRouter()
+
 
   useEffect(() => {
     if (!user && !isLoading) {

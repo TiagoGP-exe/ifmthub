@@ -36,6 +36,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
     register,
     setValue,
     formState: { errors },
+    reset,
     watch
   } = useForm<FormData>({
     resolver: zodResolver(registerAuthSchema),
@@ -53,22 +54,29 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
   async function onSubmit(data: FormData) {
     setIsLoading(true)
 
-    const signInResult = await signUp({ ...data, urlImgProfile: "" })
+    try {
+      await signUp({ ...data, urlImgProfile: "" })
 
-    setIsLoading(false)
+      reset()
 
-    // if (!signInResult?.ok) {
-    //   return toast({
-    //     title: "Something went wrong.",
-    //     description: "Your sign in request failed. Please try again.",
-    //     variant: "destructive",
-    //   })
-    // }
+      return toast({
+        title: "Verifique seu email",
+        description: "Enviamos um email com um link para confirmar sua conta.",
+      })
 
-    return toast({
-      title: "Check your email",
-      description: "We sent you a login link. Be sure to check your spam too.",
-    })
+
+    } catch (error) {
+      return toast({
+        title: "Erro",
+        description: "Algo deu errado. Tente novamente.",
+        variant: "destructive",
+      })
+
+    } finally {
+      setIsLoading(false)
+    }
+
+
   }
 
   const handleEyeClick = (type: keyof typeof eyesIsOpen) => {
@@ -86,7 +94,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
       <DatePicker
         placeholder="Data de Nascimento"
         customSetDate={
-          (e) => setValue("birthDate", format(e, "dd-MM-yyyy"))
+          (e) => setValue("birthDate", format(e, "dd/MM/yyyy"))
         }
         error={watch("birthDate") ? "" : errors.birthDate?.message}
       />

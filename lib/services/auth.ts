@@ -23,3 +23,4 @@ export const signUp = async (props: SignUpProps) => {
 
   return data
 }
+

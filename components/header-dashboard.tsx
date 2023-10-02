@@ -6,6 +6,12 @@ import { ModeToggle } from './mode-toggle'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { useAuth } from './use-auth'
+import { Avatar } from './avatar-and-status'
+
+const GENDER_MESSAGE = {
+  M: "Bem vindo de volta",
+  F: "Bem vinda de volta"
+}
 
 export const HeaderDashboard = () => {
   const { push, prefetch } = useRouter()
@@ -27,11 +33,13 @@ export const HeaderDashboard = () => {
         <ModeToggle />
 
         <div className='flex items-center gap-2 '>
-          <Image unoptimized alt='profile' src={user?.urlImgProfile ?? ""} width={36} height={36} className='border-foreground bg-foreground aspect-square rounded-md border-2 object-cover' />
+          <Avatar name={user?.fullName ?? ""} imgURL={user?.urlImgProfile ?? ""} />
           <div className='flex flex-col'>
-            <span className='text-[0.6rem] opacity-70'>{
-              user?.gender === "M" ? "Bem vindo de volta" : "Bem vinda de volta"
-            }</span>
+            <span className='text-[0.6rem] opacity-70'>
+              {
+                GENDER_MESSAGE[user?.gender ?? "M"]
+              }
+            </span>
             <p className='text-lg  font-bold leading-5'>{user?.fullName}</p>
           </div>
         </div>
