@@ -28,10 +28,10 @@ import {
   Bookmark,
   FileTextIcon,
   LogOut,
-  type Icon as LucideIcon,
+  TypeIcon,
 } from "lucide-react"
 
-export type Icon = LucideIcon
+export type Icon = typeof TypeIcon
 
 export const Icons = {
   logo: Command,

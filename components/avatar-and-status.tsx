@@ -11,6 +11,7 @@ import { DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu"
 import { LogOut, User } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from './use-auth'
+import { cn } from '../lib/utils'
 
 const LIST_OF_ACTIONS = [
   {
@@ -28,10 +29,12 @@ const LIST_OF_ACTIONS = [
 interface StatusProps {
   name: string
   imgURL: string
+  className?: string
 }
 export const Avatar: FC<StatusProps> = ({
   imgURL,
   name,
+  className
 }) => {
   const { push } = useRouter()
   const { logout } = useAuth()
@@ -47,7 +50,9 @@ export const Avatar: FC<StatusProps> = ({
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className={
+      cn("flex items-center gap-2", className)
+    }>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           {imgURL ? <Image

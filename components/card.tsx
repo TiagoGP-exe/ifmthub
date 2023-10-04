@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
 import { FC } from 'react'
-import { Avatar } from './avatar-and-status'
 import { User } from 'lucide-react'
 
 interface CardProps {
@@ -11,6 +10,7 @@ interface CardProps {
   description: string
   img: string
   profileImage: string
+  onClick: () => void
 }
 
 export const Card: FC<CardProps> = ({
@@ -19,9 +19,10 @@ export const Card: FC<CardProps> = ({
   title,
   description,
   img,
-  profileImage
+  profileImage,
+  onClick
 }) => (
-  <div className='flex w-full flex-col gap-4'>
+  <div onClick={onClick} className='flex w-full flex-col gap-4 hover:cursor-pointer'>
     <div className='flex flex-col gap-2'>
       <div className='flex items-center gap-2'>
         {profileImage ? <Image

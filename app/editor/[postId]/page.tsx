@@ -26,7 +26,9 @@ export default async function EditorPage({ params }: EditorPageProps) {
         id: null,
         title: "",
         content: "",
-        published: ""
+        published: "",
+        readOnly: false,
+        tags: [],
       }}
     />
   )

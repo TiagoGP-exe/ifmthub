@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cn } from '../lib/utils'
-import { Icons } from './icons'
+import { Icon, Icons } from './icons'
 
 
 interface EmptyPlaceholderProps extends React.HTMLAttributes<HTMLDivElement> { }
@@ -35,7 +35,7 @@ EmptyPlaceholder.Icon = function EmptyPlaceHolderIcon({
   className,
   ...props
 }: EmptyPlaceholderIconProps) {
-  const Icon = Icons[name]
+  const Icon = Icons[name] as any;
 
   if (!Icon) {
     return null

@@ -74,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const signInResult = await signIn(email, password)
 
       if (signInResult.token) {
-        Cookies.set('authToken', signInResult.token, { expires: 7 });
+        Cookies.set('authToken', signInResult.token, { expires: new Date(Date.now() + 60 * 60 * 1000) });
         fetchUser();
       }
 

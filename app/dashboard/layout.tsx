@@ -18,7 +18,6 @@ export default function Dashboard({ children }: DashboardLayoutProps) {
   const { user, isLoading } = useAuth()
   const { push } = useRouter()
 
-
   useEffect(() => {
     if (!user && !isLoading) {
       push("/login")

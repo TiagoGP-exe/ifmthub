@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import { GetPostProps, getPosts } from '../../lib/services/post';
+import { useRouter } from 'next/navigation';
 
 const date = new Date(Date.UTC(2020, 11, 20, 3, 23, 16, 738));
 
 export default function Home() {
   const [arrayTotal, setArrayTotal] = useState<GetPostProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
 
   const refreshPosts = useRef(null)
   const anotherIsInView = useInView(refreshPosts)
@@ -48,7 +50,8 @@ export default function Home() {
           },
           title,
           dateCreated,
-          subtitle
+          subtitle,
+          idPost
         }, index) => (
           <Card key={index}
             date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
@@ -57,6 +60,7 @@ export default function Home() {
             profileImage={urlImgProfile}
             img={`https://source.unsplash.com/random/640x${index + 480}`}
             description={subtitle}
+            onClick={() => push(`post/${idPost}`)}
           />
         ))
       }

@@ -17,20 +17,21 @@ import { ImageIcon } from 'lucide-react'
 import { ImageInput } from './Image-input'
 import { setPost } from '../lib/services/post'
 import { useAuth } from './use-auth'
+import { Avatar } from './avatar-and-status'
 interface EditorProps {
-  post: Pick<any, "id" | "title" | "content" | "published">
+  post: Pick<any, "id" | "title" | "content" | "published" | "readOnly" | "tags">
+  author?: any
 }
 
 type FormData = { tags: string, title: string }
 
-export function Editor({ post }: EditorProps) {
+export function Editor({ post, author }: EditorProps) {
   const { register, handleSubmit, getValues } = useForm<FormData>()
   const ref = React.useRef<EditorJS>()
   const router = useRouter()
   const [isSaving, setIsSaving] = React.useState<boolean>(false)
   const [isMounted, setIsMounted] = React.useState<boolean>(false)
   const { user } = useAuth()
-
 
 
   const initializeEditor = React.useCallback(async () => {
@@ -43,7 +44,6 @@ export function Editor({ post }: EditorProps) {
     const LinkTool = (await import("@editorjs/link" as any)).default
     const InlineCode = (await import("@editorjs/inline-code" as any)).default
 
-    const body = {}
 
     if (!ref.current) {
       const editor = new EditorJS({
@@ -54,7 +54,7 @@ export function Editor({ post }: EditorProps) {
         placeholder: "Type here to write your post...",
         inlineToolbar: true,
         data: {
-          blocks: [],
+          blocks: post.content.blocks,
         },
         tools: {
           header: Header,
@@ -65,9 +65,10 @@ export function Editor({ post }: EditorProps) {
           table: Table,
           embed: Embed,
         },
+        readOnly: post.readOnly,
       })
     }
-  }, [])
+  }, [post.content, post.readOnly])
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -91,7 +92,7 @@ export function Editor({ post }: EditorProps) {
 
     const blocks = await ref.current?.save()
 
-    const tags = getValues("tags").split(" ")
+    const tags = getValues("tags").split(" ").map(item => item.trim())
 
     try {
       await setPost({
@@ -105,7 +106,7 @@ export function Editor({ post }: EditorProps) {
         title: data.title,
         content: JSON.stringify(blocks),
         urlImgPost: "",
-        subtitle: "test",
+        subtitle: blocks?.blocks[0]?.data?.text,
       })
 
       router.refresh()
@@ -133,7 +134,7 @@ export function Editor({ post }: EditorProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex w-full flex-col items-center justify-center gap-10">
-        <div className="flex w-11/12 max-w-screen-xl items-center justify-between">
+        {!post.readOnly && <div className="flex w-11/12 max-w-screen-lg items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
               href="/dashboard"
@@ -154,30 +155,59 @@ export function Editor({ post }: EditorProps) {
             )}
             <span>Save</span>
           </button>
-        </div>
-        <div className="prose prose-stone dark:prose-invert mx-auto max-w-[90%] md:max-w-[800px]">
-          <ImageInput className='mb-4 w-full' />
-          <Input
+        </div>}
+        <div className="prose prose-stone dark:prose-invert mx-auto w-full md:max-w-[650px]">
+          {!post.readOnly && <ImageInput className='mb-4 w-full' />}
+          {!post.readOnly && <Input
             {...register("tags")}
             placeholder='tags'
             className='mb-4'
-          />
+          />}
+
           <TextareaAutosize
             autoFocus
             id="title"
             defaultValue={post.title}
             placeholder="Post title"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+            className="text-foreground font-heading w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl focus:outline-none"
             {...register("title")}
+            disabled={post.readOnly}
           />
-          <div id="editor" className="min-h-[50px] " />
-          <p className="text-sm text-gray-500">
+
+          {post.readOnly &&
+            <div className='mb-6 mt-2 flex items-center gap-3 '>
+              <Avatar
+                name={author?.fullName}
+                imgURL={author?.urlImgProfile ?? ""}
+              />
+              <div className='flex h-10 flex-col justify-between font-medium'>
+                <span className=' text-sm '>{author?.fullName}</span>
+                <span className='text-foreground/40 text-xs'>{
+                  new Date(post.published).toLocaleDateString()
+                }</span>
+              </div>
+            </div>
+          }
+          {
+            post.readOnly && post.tags.length > 0 && (
+              <div className='border-foreground/5 mb-2 flex max-w-screen-sm flex-wrap items-center gap-2 border-y  py-3'>
+                <span>Tags: </span>
+                {post.tags.map((tag: any, index: number) => (
+                  <div key={index} className="bg-foreground-soft/50 text-foreground/70 flex items-center gap-2 rounded-md px-4 py-1 text-sm">
+                    <span>{tag.description}</span>
+                  </div>
+                ))}
+              </div>
+            )
+          }
+          <div id="editor" className=" w-full " />
+          {!post.readOnly && <p className="text-sm text-gray-500">
             Use{" "}
             <kbd className="bg-muted rounded-md border px-1 text-xs uppercase">
               Tab
             </kbd>{" "}
             to open the command menu.
-          </p>
+          </p>}
         </div>
       </div>
     </form>
