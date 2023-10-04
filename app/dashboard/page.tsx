@@ -52,15 +52,13 @@ export default function Home() {
           idPost
         }, index) => (
           <Card key={index}
+            idPost={idPost}
             date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
             title={title}
             authorName={fullName}
             profileImage={urlImgProfile}
             img={`https://source.unsplash.com/random/640x${index + 480}`}
             description={subtitle}
-            onMouseEnter={() => {
-              prefetch(`post/${idPost}`)
-            }}
             onClick={() => {
               push(`post/${idPost}`)
             }}

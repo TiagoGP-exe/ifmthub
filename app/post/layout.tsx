@@ -19,7 +19,7 @@ export default function EditorLayout({ children }: EditorProps) {
   }, [isLoading, push, user])
 
   return user?.email ? (
-    <div className="container mx-auto grid items-start gap-10 py-8 ">
+    <div className="container mx-auto grid items-start py-8 ">
       {children}
     </div>
   ) : null

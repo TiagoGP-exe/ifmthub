@@ -45,6 +45,9 @@ export function Editor({ post, author }: EditorProps) {
     const InlineCode = (await import("@editorjs/inline-code" as any)).default
 
 
+    console.log(post.content.blocks)
+
+
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editor",
@@ -54,7 +57,7 @@ export function Editor({ post, author }: EditorProps) {
         placeholder: "Type here to write your post...",
         inlineToolbar: true,
         data: {
-          blocks: post.content.blocks,
+          blocks: [post.content.blocks[0], post.content.blocks[0], post.content.blocks[0], post.content.blocks[0]]
         },
         tools: {
           header: Header,
@@ -133,7 +136,7 @@ export function Editor({ post, author }: EditorProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex w-full flex-col items-center justify-center gap-10">
+      <div className="flex w-full flex-col items-center justify-center gap-10 px-4">
         {!post.readOnly && <div className="flex w-11/12 max-w-screen-lg items-center justify-between">
           <div className="flex items-center space-x-10">
             <Link
@@ -174,7 +177,7 @@ export function Editor({ post, author }: EditorProps) {
             disabled={post.readOnly}
           />
 
-          {post.readOnly &&
+          {post.readOnly && author?.fullName &&
             <div className='mb-6 mt-2 flex items-center gap-3 '>
               <Avatar
                 name={author?.fullName}

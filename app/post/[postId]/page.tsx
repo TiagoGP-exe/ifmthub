@@ -38,23 +38,22 @@ export default async function EditorPage({ params }: EditorPageProps) {
         author={post.author}
       />
 
-      <div className='mx-auto w-full max-w-[90%] md:max-w-[650px]'>
-        <div className='border-foreground/5 dark:border-foreground/10  flex   flex-wrap items-center gap-4 border-y p-2 '>
-          <div className='flex cursor-pointer items-center gap-1 opacity-40 transition-all hover:opacity-100 active:scale-90'>
-            <MessageCircle className='' strokeWidth={1.5} size={20} />
-            <span>{post.comments.length}</span>
-          </div>
-          <span className='flex-1' />
-          <div className='cursor-pointer  opacity-40 transition-all hover:opacity-100 active:scale-90'>
-            <BookMarkedIcon strokeWidth={1.5} size={20} />
-          </div>
-          <div className='cursor-pointer opacity-40 transition-all hover:opacity-100 active:scale-90'>
-            <Share2 strokeWidth={1.5} size={20} />
-          </div>
+      <div className=' border-foreground/5 dark:border-foreground/10 sticky bottom-0 z-10 mx-auto flex w-full max-w-[90%] flex-wrap items-center gap-4 border-y p-2 md:max-w-[650px]'>
+        <div className='flex cursor-pointer items-center gap-1 opacity-40 transition-all hover:opacity-100 active:scale-90'>
+          <MessageCircle className='' strokeWidth={1.5} size={20} />
+          <span>{post.comments.length}</span>
         </div>
-
+        <span className='flex-1' />
+        <div className='cursor-pointer  opacity-40 transition-all hover:opacity-100 active:scale-90'>
+          <BookMarkedIcon strokeWidth={1.5} size={20} />
+        </div>
+        <div className='cursor-pointer opacity-40 transition-all hover:opacity-100 active:scale-90'>
+          <Share2 strokeWidth={1.5} size={20} />
+        </div>
+      </div>
+      <div className=' mx-auto w-full max-w-[90%] md:max-w-[650px]'>
         <Comments idPost={post.idPost} />
-        {post.comments.length > 0 && <div className='mt-6 flex flex-col gap-4'>
+        {post.comments.length > 0 && <div className=' flex flex-col gap-4'>
           {post.comments.reverse().map((comment) => (
             <div key={comment.idComment}
               className='border-foreground/5 dark:border-foreground/10 flex flex-col border-b px-1 pb-4'>
