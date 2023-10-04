@@ -15,6 +15,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
   useEffect(() => {
     prefetch("/register")
     prefetch("/login")
+    prefetch("/dashboard")
 
     if (user?.email && !isLoading) {
       push("/dashboard")

@@ -190,7 +190,7 @@ export function Editor({ post, author }: EditorProps) {
           }
           {
             post.readOnly && post.tags.length > 0 && (
-              <div className='border-foreground/5 mb-2 flex max-w-screen-sm flex-wrap items-center gap-2 border-y  py-3'>
+              <div className='border-foreground/5 dark:border-foreground/10 mb-2 flex max-w-screen-sm flex-wrap items-center gap-2 border-y  py-3'>
                 <span>Tags: </span>
                 {post.tags.map((tag: any, index: number) => (
                   <div key={index} className="bg-foreground-soft/50 text-foreground/70 flex items-center gap-2 rounded-md px-4 py-1 text-sm">

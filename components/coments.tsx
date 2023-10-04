@@ -60,6 +60,7 @@ export const Comments: FC<CommentsProps> = ({ idPost }) => {
       <div className='flex  w-full gap-2 '>
         <div className='w-full'>
           <Input
+            className='dark:border-foreground/10'
             disabled={!user?.idUser}
             {...register('content')}
             placeholder='Comentário'

@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image'
-import { FC } from 'react'
+import { DetailedHTMLProps, FC, HTMLAttributes } from 'react'
 import { User } from 'lucide-react'
 
-interface CardProps {
+interface CardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   authorName: string
   date: string
   title: string
@@ -20,9 +20,10 @@ export const Card: FC<CardProps> = ({
   description,
   img,
   profileImage,
-  onClick
+  onClick,
+  ...props
 }) => (
-  <div onClick={onClick} className='flex w-full flex-col gap-4 hover:cursor-pointer'>
+  <div {...props} onClick={onClick} className='flex w-full flex-col gap-4 hover:cursor-pointer'>
     <div className='flex flex-col gap-2'>
       <div className='flex items-center gap-2'>
         {profileImage ? <Image

@@ -1,12 +1,5 @@
-"use client"
-
-import { useEffect } from "react"
-import { useRouter } from "next/navigation"
-
 import { HeaderDashboard } from "../../components/header-dashboard"
 import { Sidebar } from "../../components/sidebar"
-import { useAuth } from "../../components/use-auth"
-import { getPosts } from '../../lib/services/post'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -15,16 +8,7 @@ interface DashboardLayoutProps {
 
 
 export default function Dashboard({ children }: DashboardLayoutProps) {
-  const { user, isLoading } = useAuth()
-  const { push } = useRouter()
-
-  useEffect(() => {
-    if (!user && !isLoading) {
-      push("/login")
-    }
-  }, [isLoading, push, user])
-
-  return user?.email ? (
+  return (
     <div className="bg-background flex min-h-screen flex-col-reverse items-center justify-center md:flex-row">
       <Sidebar />
 
@@ -33,5 +17,5 @@ export default function Dashboard({ children }: DashboardLayoutProps) {
         {children}
       </div>
     </div>
-  ) : null
+  )
 }
