@@ -26,7 +26,7 @@ export const setPost = async (post: PostProps) => {
 }
 
 export interface GetPostProps {
-  idPost: number
+  idPost: string
   author: Author
   category: Category
   tags: Tag[]
@@ -69,7 +69,7 @@ export const getPosts = async () => {
 }
 
 export interface GetPostByIdProps {
-  idPost: number
+  idPost: string
   author: Author
   category: Category
   tags: Tag[]
@@ -107,7 +107,13 @@ export const getPostById = async (id: string, token?: string) => {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  }: {})
+  } : {})
 
   return data as GetPostByIdProps
+}
+
+export const postFilter = async (title: string) => {
+  const { data } = await api.get(`/post/filter?query=${title}`)
+
+  return data
 }

@@ -13,7 +13,7 @@ import { setComment } from '../lib/services/comment';
 import { Avatar } from './avatar-and-status';
 
 interface CommentsProps {
-  idPost: number
+  idPost: string
 }
 
 export const Comments: FC<CommentsProps> = ({ idPost }) => {

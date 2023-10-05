@@ -51,6 +51,7 @@
     "react-editor-js": "^2.1.0",
     "react-hook-form": "^7.46.1",
     "react-textarea-autosize": "^8.5.3",
+    "react-web-share": "^2.0.2",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "5.1.6"

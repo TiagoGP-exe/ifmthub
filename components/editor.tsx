@@ -45,8 +45,6 @@ export function Editor({ post, author }: EditorProps) {
     const InlineCode = (await import("@editorjs/inline-code" as any)).default
 
 
-    console.log(post.content.blocks)
-
 
     if (!ref.current) {
       const editor = new EditorJS({
@@ -57,7 +55,7 @@ export function Editor({ post, author }: EditorProps) {
         placeholder: "Type here to write your post...",
         inlineToolbar: true,
         data: {
-          blocks: [post.content.blocks[0], post.content.blocks[0], post.content.blocks[0], post.content.blocks[0]]
+          blocks: post.content.blocks
         },
         tools: {
           header: Header,

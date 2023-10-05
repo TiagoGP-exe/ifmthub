@@ -1,7 +1,7 @@
 import { api } from '../api'
 
-export const setComment = async (idPost: number, content: string) => {
-  const {data} = await api.post(`/comment`, {
+export const setComment = async (idPost: string, content: string) => {
+  const { data } = await api.post(`/comment`, {
     idPost,
     content
   })

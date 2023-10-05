@@ -13,8 +13,7 @@ interface CardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HT
   description: string
   img: string
   profileImage: string
-  idPost: number
-  onClick: () => void
+  idPost: string
 }
 
 export const Card: FC<CardProps> = ({
@@ -24,13 +23,12 @@ export const Card: FC<CardProps> = ({
   description,
   img,
   profileImage,
-  onClick,
   idPost,
 }) => {
   return (
-    <Link href={`/post/${idPost}`} onClick={onClick} className='flex w-full flex-col gap-4 hover:cursor-pointer'>
+    <Link href={`/post/${idPost}`} className='flex w-full flex-col gap-4 hover:cursor-pointer'>
       <div className='flex flex-col gap-2'>
-        <div className='flex items-center gap-2'>
+        <div className='mb-4 flex items-center gap-2'>
           {profileImage ? <Image
             unoptimized
             src={profileImage}
