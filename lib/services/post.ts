@@ -80,6 +80,10 @@ export interface GetPostByIdProps {
   dateCreated: string
   urlImgPost: string
   status: boolean
+  bookmarked: boolean
+  favorited: boolean
+  countFavorites: number
+  countBookmarks: number
 }
 
 export interface Comment {

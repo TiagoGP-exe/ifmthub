@@ -44,7 +44,7 @@ export const Comments: FC<CommentsProps> = ({ idPost }) => {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='bg-background sticky top-0 z-10 flex w-full flex-col gap-4 py-6  '>
+    <form onSubmit={handleSubmit(onSubmit)} className='bg-background sticky -top-1 z-10 flex w-full flex-col gap-4 py-6  '>
       {user?.fullName &&
         <div className='flex items-center gap-3 px-1'>
           <Avatar

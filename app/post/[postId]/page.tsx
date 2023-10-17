@@ -6,6 +6,7 @@ import { Comments } from '../../../components/coments'
 import { Avatar } from '../../../components/avatar-and-status'
 import { intlFormat } from 'date-fns'
 import { OptionsPost } from '../../../components/options-post'
+import Loading from './loading'
 
 
 interface EditorPageProps {
@@ -41,7 +42,12 @@ export default async function EditorPage({ params }: EditorPageProps) {
         title={post.title}
         subtitle={post.subtitle}
         idPost={post.idPost}
-        commentsNumber={post.comments.length} />
+        commentsNumber={post.comments.length}
+        bookmarked={post.bookmarked}
+        favorited={post.favorited}
+        countFavorites={post.countFavorites}
+        countBookmarks={post.countBookmarks}
+      />
       <div id='comments' className=' mx-auto w-full max-w-[90%] md:max-w-[650px]'>
         <Comments idPost={post.idPost} />
         {post.comments.length > 0 && <div className=' flex flex-col gap-4'>
@@ -78,8 +84,6 @@ export default async function EditorPage({ params }: EditorPageProps) {
         </div>
         }
       </div>
-
-
     </>
   )
 }

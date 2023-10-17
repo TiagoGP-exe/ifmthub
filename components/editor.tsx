@@ -33,7 +33,6 @@ export function Editor({ post, author }: EditorProps) {
   const [isMounted, setIsMounted] = React.useState<boolean>(false)
   const { user } = useAuth()
 
-
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
     const Header = (await import("@editorjs/header" as any)).default
@@ -43,8 +42,6 @@ export function Editor({ post, author }: EditorProps) {
     const Code = (await import("@editorjs/code" as any)).default
     const LinkTool = (await import("@editorjs/link" as any)).default
     const InlineCode = (await import("@editorjs/inline-code" as any)).default
-
-
 
     if (!ref.current) {
       const editor = new EditorJS({
@@ -165,15 +162,26 @@ export function Editor({ post, author }: EditorProps) {
             className='mb-4'
           />}
 
-          <TextareaAutosize
-            autoFocus
-            id="title"
-            defaultValue={post.title}
-            placeholder="Post title"
-            className="text-foreground font-heading w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl focus:outline-none"
-            {...register("title")}
-            disabled={post.readOnly}
-          />
+          <div className="flex items-center">
+
+            {
+              post.readOnly && (
+                <div onClick={() => router.back()} className="border-foreground/10 mr-2 flex h-10 w-12 items-center justify-center rounded-md border sm:hidden">
+                  <Icons.chevronLeft size={28} />
+                </div>
+              )
+            }
+
+            <TextareaAutosize
+              autoFocus
+              id="title"
+              defaultValue={post.title}
+              placeholder="Post title"
+              className="text-foreground font-heading w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl focus:outline-none"
+              {...register("title")}
+              disabled={post.readOnly}
+            />
+          </div>
 
           {post.readOnly && author?.fullName &&
             <div className='mb-6 mt-2 flex items-center gap-3 '>
