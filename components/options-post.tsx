@@ -1,13 +1,13 @@
 "use client"
 
-import { Bookmark, Heart, Loader2, MessageCircle, Share2 } from 'lucide-react'
+import { Bookmark, Heart, MessageCircle, Share2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { CommentProps } from 'postcss'
-import { FC, useEffect, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { RWebShare } from 'react-web-share'
 import { setBookmark } from '../lib/services/bookmark'
 import { Counter } from './counter'
 import { setFavorite } from '../lib/services/favorites'
+import { useAuth } from './use-auth'
 
 interface OptionsPostProps {
   commentsNumber: number
@@ -24,6 +24,7 @@ export const OptionsPost: FC<OptionsPostProps> = ({ commentsNumber, title, subti
   const [isLoading, setIsLoading] = useState(false)
   const [isActive, setIsActive] = useState(bookmarked)
   const [favorites, setFavorites] = useState(favorited)
+  const { user } = useAuth()
 
   const actualcountBookmarks = useMemo(() => {
 
@@ -79,14 +80,14 @@ export const OptionsPost: FC<OptionsPostProps> = ({ commentsNumber, title, subti
       <MessageCircle className='' strokeWidth={1.5} size={20} />
       <Counter from={0} to={commentsNumber} duration={1.5} />
     </button>
-    <button disabled={isLoading} onClick={toggleFavorite} className={`flex cursor-pointer items-center gap-1 ${!favorites && "opacity-40 hover:opacity-100"} active:scale-90`}>
+    <button disabled={isLoading || !user?.email} onClick={toggleFavorite} className={`flex cursor-pointer items-center gap-1 ${!favorites && "opacity-40 hover:opacity-100"} active:scale-90`}>
       <Heart
         className={favorites ? 'fill-red-500' : ''}
         strokeWidth={1.5} size={20} />
       <Counter from={0} to={actualcountFavorites} duration={actualcountFavorites >= 10 ? 0.5 : 0} />
     </button>
     <span className='flex-1' />
-    <button disabled={isLoading} onClick={toggleActive} className='flex cursor-pointer items-center gap-1  opacity-40 transition-all hover:opacity-100 active:scale-90'>
+    <button disabled={isLoading || !user?.email} onClick={toggleActive} className='flex cursor-pointer items-center gap-1  opacity-40 transition-all hover:opacity-100 active:scale-90'>
       <Bookmark
         className={isActive ? 'fill-current' : ''}
         strokeWidth={1.5}
