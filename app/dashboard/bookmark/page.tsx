@@ -1,12 +1,15 @@
-import { cookies } from 'next/headers'
+"use client"
+
 import { getBookmark } from '../../../lib/services/bookmark'
 import { Card } from '../../../components/card'
+import { useQuery } from '@tanstack/react-query';
 
-export default async function Bookmark() {
-
-  const cookiess = cookies().get("authToken")
-
-  const Bookmark = await getBookmark(cookiess?.value)
+export default function Bookmark() {
+  const { data: Bookmark } = useQuery({
+    staleTime: 300000, // Tempo de "stale" para 5 minutos (opcional)
+    queryKey: ['bookmark'],
+    queryFn: async () => await getBookmark()
+  });
 
   return (
 

@@ -5,15 +5,15 @@ import { Button } from './components/ui/button';
 
 const outfit = Outfit({ subsets: ['latin'] })
 
+const metadata = {
+  title: 'Home',
+}
+
 export default function Home() {
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-center p-8 ${outfit.className}`}
     >
-      <Head>
-        <title>Home</title>
-      </Head>
-
       <div className='flex max-w-screen-xl flex-col-reverse items-start justify-center md:flex-row md:gap-8'>
 
         <div className='w-full md:w-1/2'>

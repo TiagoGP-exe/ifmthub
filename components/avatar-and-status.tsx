@@ -30,11 +30,13 @@ interface StatusProps {
   name: string
   imgURL: string
   className?: string
+  disabled?: boolean
 }
 export const Avatar: FC<StatusProps> = ({
   imgURL,
   name,
-  className
+  className,
+  disabled
 }) => {
   const { push } = useRouter()
   const { logout } = useAuth()
@@ -54,7 +56,7 @@ export const Avatar: FC<StatusProps> = ({
       cn("flex items-center gap-2", className)
     }>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger disabled={disabled} asChild>
           {imgURL ? <Image
             unoptimized
             src={imgURL}

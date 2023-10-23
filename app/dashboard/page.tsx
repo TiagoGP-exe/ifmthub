@@ -1,32 +1,25 @@
 "use client"
 
 import { Card } from '../../components/card'
-import { useEffect, useRef, useState } from 'react';
-import { useInView } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
-import { GetPostProps, getPosts } from '../../lib/services/post';
+import { getPosts } from '../../lib/services/post';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
-  const [arrayTotal, setArrayTotal] = useState<GetPostProps[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { data: arrayTotal, isLoading } = useQuery({
+    staleTime: 300000, // Tempo de "stale" para 5 minutos (opcional)
+    queryKey: ['posts'],
+    queryFn: async () => await getPosts()
+  });
+
   const { push } = useRouter()
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true)
-      const data = await getPosts()
-      setIsLoading(false)
-      setArrayTotal(data.reverse())
-    })()
-  }, [])
-
 
   return (
 
     <main className='xs:px-8 flex flex-col gap-y-8 px-4'>
       {
-        arrayTotal.map(({
+        arrayTotal?.map(({
           author: {
             fullName,
             urlImgProfile,

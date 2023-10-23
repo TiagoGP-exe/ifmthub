@@ -52,6 +52,7 @@ export default async function EditorPage({ params }: EditorPageProps) {
                   className='border-foreground/5 dark:border-foreground/10 flex flex-col border-b px-1 pb-4'>
                   <div className='flex items-center gap-3'>
                     <Avatar
+                      disabled
                       name={comment.commenter.fullName}
                       imgURL={comment.commenter.urlImgProfile} />
                     <div className='flex flex-col'>

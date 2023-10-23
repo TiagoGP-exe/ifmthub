@@ -1,6 +1,5 @@
 
 import Image from 'next/image'
-import Head from 'next/head';
 import { TrendingUp } from 'lucide-react';
 
 import { Outfit } from 'next/font/google'
@@ -9,9 +8,14 @@ import { HeaderNav } from '../components/header-nav';
 import { buttonVariants } from '../components/ui/button';
 import Link from 'next/link';
 import { getTendency } from '../lib/services/post';
+import { Metadata } from 'next';
 const outfit = Outfit({ subsets: ['latin'] })
 
 export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: 'Home',
+}
 
 export default async function Home() {
   const year = new Date().getFullYear()
@@ -22,9 +26,6 @@ export default async function Home() {
       className={`z-10 flex min-h-screen w-full flex-col items-center  pt-32 md:justify-between ${outfit.className}`}
     >
       <HeaderNav />
-      <Head>
-        <title>Home</title>
-      </Head>
 
       <div className='flex max-w-screen-xl flex-col-reverse items-start justify-center md:w-11/12 md:flex-row md:gap-8'>
         <div className='flex w-full flex-col items-center gap-3 md:w-1/2 md:items-start'>
@@ -70,7 +71,7 @@ export default async function Home() {
               key={index}
               title={title}
               date={dateCreated}
-              image={photo}
+              image={`data:image/png;base64, ${photo}`}
               slug={idUser.toString()}
               index={index + 1}
               name={fullName}

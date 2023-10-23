@@ -9,6 +9,8 @@ import { Counter } from './counter'
 import { setFavorite } from '../lib/services/favorites'
 import { useAuth } from './use-auth'
 
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 interface OptionsPostProps {
   commentsNumber: number
   title: string
@@ -26,6 +28,17 @@ export const OptionsPost: FC<OptionsPostProps> =
     const [isActive, setIsActive] = useState(bookmarked)
     const [favorites, setFavorites] = useState(favorited)
     const { user } = useAuth()
+
+    // Get QueryClient from the context
+    const queryClient = useQueryClient()
+
+
+    useMutation(() => Promise.resolve(isActive), {
+      onSettled: () => {
+        queryClient.invalidateQueries({ queryKey: ['bookmark'] })
+      }
+    })
+
 
     const actualcountBookmarks = useMemo(() => {
 

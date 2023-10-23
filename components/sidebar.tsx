@@ -78,7 +78,7 @@ export const Sidebar = () => {
           size={28}
         />
       </aside>
-      <nav className='bg-background/90 xs:px-8 sticky -bottom-3 mt-4 flex w-full items-center justify-center  border-t py-4 pb-8 backdrop-blur-md md:hidden' >
+      <nav className='bg-background/90 xs:px-8 sticky -bottom-3 z-10 mt-4 flex w-full items-center  justify-center border-t py-4 pb-8 backdrop-blur-md md:hidden' >
         <div className='flex w-full items-center justify-around'>
           <ButtonIcon
             name='home'
@@ -96,20 +96,23 @@ export const Sidebar = () => {
             active={changeLocation === routers.search}
           />
 
-          <ButtonIcon
+          {user?.email && <ButtonIcon
             name='bookmark'
             size={24}
             paddingSize='sm'
             onClick={() => setPath(routers.bookmark)}
             active={changeLocation === routers.bookmark}
-          />
-          <ButtonIcon
-            name='fileText'
-            size={24}
-            paddingSize='sm'
-            onClick={() => setPath(routers.sketch)}
-            active={changeLocation === routers.sketch}
-          />
+          />}
+
+          {user?.email &&
+            <ButtonIcon
+              name='fileText'
+              size={24}
+              paddingSize='sm'
+              onClick={() => setPath(routers.sketch)}
+              active={changeLocation === routers.sketch}
+            />
+          }
         </div>
 
         <ButtonIcon

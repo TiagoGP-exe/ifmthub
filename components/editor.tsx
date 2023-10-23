@@ -161,13 +161,14 @@ export function Editor({ post, author }: EditorProps) {
 
         <div className="flex w-full max-w-[650px] items-center justify-between">
           <div className="flex items-center space-x-10">
-            <Link
-              href="/dashboard"
+            <button
+              onClick={() => router.back()}
+              type='button'
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
               <Icons.chevronLeft className="mr-2 h-4 w-4" />
               Voltar
-            </Link>
+            </button>
           </div>
           {!post.readOnly &&
             <button type="submit" className={cn(buttonVariants())}>
@@ -178,7 +179,7 @@ export function Editor({ post, author }: EditorProps) {
             </button>}
         </div>
         <div className="dark:prose-invert mx-auto flex w-full max-w-[650px] flex-col gap-4 ">
-          {!post.readOnly && <ImageInput initialImage={post.postImage} saveImage={(e) => setValue("photo", e)} className='mb-4 w-full ' />}
+          {!post.readOnly && <ImageInput initialImage={post.postImage} saveImage={(e) => setValue("photo", e)} className='mb-4 w-full ' onError={(e) => e.preventDefault()} />}
           {!post.readOnly && <Input
             {...register("tags")}
             placeholder='tags'
@@ -197,6 +198,7 @@ export function Editor({ post, author }: EditorProps) {
           {post.readOnly && author?.fullName &&
             <div className=' flex items-center gap-3 '>
               <Avatar
+                disabled
                 name={author?.fullName}
                 imgURL={`data:image/png;base64, ${author?.photo}` ?? author?.urlImgProfile}
               />

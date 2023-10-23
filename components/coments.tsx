@@ -48,6 +48,7 @@ export const Comments: FC<CommentsProps> = ({ idPost }) => {
       {user?.fullName &&
         <div className='flex items-start gap-3 px-1'>
           <Avatar
+            disabled
             name={user?.fullName}
             imgURL={` data:image/png;base64, ${user?.photo}` ?? user?.urlImgProfile}
           />
