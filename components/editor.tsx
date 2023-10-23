@@ -13,13 +13,11 @@ import { cn, getFileDimensions } from '../lib/utils'
 import { buttonVariants } from './ui/button'
 import { Icons } from './icons'
 import { Input } from './ui/input'
-import { ImageIcon } from 'lucide-react'
 import { ImageInput } from './Image-input'
 import { postUpdateImage, setPost } from '../lib/services/post'
 import { useAuth } from './use-auth'
 import { Avatar } from './avatar-and-status'
 import imageCompression from 'browser-image-compression'
-import { updateImage } from '../lib/services/auth'
 import Image from 'next/image'
 interface EditorProps {
   post: Pick<any, "id" | "title" | "content" | "published" | "readOnly" | "tags" | "postImage">
@@ -180,7 +178,7 @@ export function Editor({ post, author }: EditorProps) {
             </button>}
         </div>
         <div className="dark:prose-invert mx-auto flex w-full max-w-[650px] flex-col gap-4 ">
-          {!post.readOnly && <ImageInput initialImage={post.postImage} saveImage={(e) => setValue("photo", e)} className='mb-4 w-full' />}
+          {!post.readOnly && <ImageInput initialImage={post.postImage} saveImage={(e) => setValue("photo", e)} className='mb-4 w-full ' />}
           {!post.readOnly && <Input
             {...register("tags")}
             placeholder='tags'

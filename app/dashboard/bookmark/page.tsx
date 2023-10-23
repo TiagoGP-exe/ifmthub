@@ -15,23 +15,29 @@ export default async function Bookmark() {
       <h1 className='font-heading'>Bookmark</h1>
 
       {
-        Bookmark?.map(({
+        Bookmark?.reverse().map(({
           author: {
             fullName,
             urlImgProfile,
+            photo: authorPhoto
           },
           title,
           dateCreated,
           subtitle,
-          idPost
-        }, index) => (
+          idPost,
+          photo
+        }) => (
           <Card key={idPost}
             idPost={idPost}
             date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
             title={title}
             authorName={fullName}
-            profileImage={urlImgProfile}
-            img={`https://source.unsplash.com/random/640x${index + 480}`}
+            profileImage={
+              authorPhoto ? `data:image/png;base64, ${authorPhoto}` :
+                urlImgProfile}
+            img={
+              `data:image/png;base64, ${photo}`
+            }
             description={subtitle}
           />
         ))

@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className='bg-background/90 sticky top-[4.55rem] mx-auto mb-4 w-full py-3 backdrop-blur-md'>
+      <form onSubmit={handleSubmit(onSubmit)} className='bg-background/90 sticky top-[4.55rem] z-10 mx-auto mb-4 w-full py-3 backdrop-blur-md'>
         <Input
           className=' mx-auto w-11/12'
           disabled={isLoading}
@@ -54,25 +54,28 @@ export default function Home() {
             author: {
               fullName,
               urlImgProfile,
+              photo: authorPhoto
             },
             title,
             dateCreated,
             subtitle,
-            idPost
+            idPost,
+            photo
           }, index) => (
-            <Card key={index}
+            <Card
+              key={index}
               idPost={idPost}
               date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
               title={title}
               authorName={fullName}
-              profileImage={urlImgProfile}
-              img={`https://source.unsplash.com/random/640x${index + 480}`}
+              profileImage={authorPhoto ? `data:image/png;base64, ${authorPhoto}` : urlImgProfile}
+              img={`data:image/png;base64, ${photo}`}
               description={subtitle}
             />
           ))
         }
         {isLoading && (
-          <div className="sticky top-10 flex items-center justify-center py-2">
+          <div className="sticky top-20 flex items-center justify-center py-2">
             <Loader2 className='animate-spin' size='24' />
           </div>
         )}

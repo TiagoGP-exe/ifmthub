@@ -39,6 +39,7 @@ export const ImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
       setErrors,
       clearErrors,
       initialImage,
+      containerClassName,
       ...rest
     } = props
     const [previewImage, setPreviewImage] = useState<string>(initialImage ?? "")
@@ -69,7 +70,7 @@ export const ImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
 
     return (
       <div
-        className={className}
+        className={containerClassName}
       >
         {label && <label
           className={`ml-1 font-semibold capitalize md:text-lg ${!!error && 'text-red-500'
@@ -79,7 +80,7 @@ export const ImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
         </label>}
         <main
           className={`group relative mt-2 flex h-48 cursor-pointer items-center justify-center  rounded-md border object-cover ${!!error ? 'border-red-500 text-red-500' : ''
-            }`}
+            } ${className}`}
         >
           <input
             type='file'
