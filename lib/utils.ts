@@ -12,6 +12,21 @@ export const formatDate = (input: string | number): string => {
   })
 }
 
+export const getFileDimensions = (
+  file: File
+): Promise<{ width: number; height: number }> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.onerror = () => {
+      reject(new Error("Failed to load the image file."));
+    };
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 export const absoluteUrl = (path: string) =>
   `${process.env.NEXT_PUBLIC_APP_URL}${path}`
 
@@ -56,4 +71,21 @@ export const socketInitializer = async (setMessages: (values: any) => void) => {
   // } catch (error) {
   //   console.log(error)
   // }
+}
+
+
+export const convertImageToBase64 = (imgUrl: string, callback?: (dataUrl: string) => void) => {
+  const image = new Image();
+  image.crossOrigin = 'anonymous';
+  image.onload = () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.height = image.naturalHeight;
+    canvas.width = image.naturalWidth;
+    ctx?.drawImage(image, 0, 0);
+    const dataUrl = canvas.toDataURL();
+    callback && callback(dataUrl)
+  }
+  image.src = imgUrl;
+  return imgUrl
 }

@@ -25,6 +25,12 @@ export const setPost = async (post: PostProps) => {
   return data
 }
 
+// , {
+//   headers: {
+//     'Content-Type': 'multipart/form-data',
+//   },
+// }
+
 export interface GetPostProps {
   idPost: string
   author: Author
@@ -36,6 +42,7 @@ export interface GetPostProps {
   dateCreated: string
   urlImgPost: string
   status: boolean
+  photo: string
 }
 
 interface Author {
@@ -46,6 +53,7 @@ interface Author {
   dateCreated: string
   birthDate: string
   urlImgProfile: string
+  photo: string
 }
 
 interface Category {
@@ -69,6 +77,7 @@ export const getPosts = async () => {
 }
 
 export interface GetPostByIdProps {
+  photo: string
   idPost: string
   author: Author
   category: Category
@@ -106,12 +115,8 @@ export interface Commenter {
 }
 
 
-export const getPostById = async (id: string, token?: string) => {
-  const { data } = await api.get(`/post/${id}`, token ? {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  } : {})
+export const getPostById = async (id: string) => {
+  const { data } = await api.get(`/post/${id}`)
 
   return data as GetPostByIdProps
 }
@@ -119,5 +124,36 @@ export const getPostById = async (id: string, token?: string) => {
 export const postFilter = async (title: string) => {
   const { data } = await api.get(`/post/filter?query=${title}`)
 
-  return data
+  return data as GetPostByIdProps[]
 }
+
+export const postUpdateImage = async (idUser: number, data: FormData) => {
+  const { data: post } = await api.post(`/post/${idUser}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+
+  return post
+}
+
+interface Tendency {
+  author: {
+    idUser: number
+    email: string
+    fullName: string
+    gender: string
+    dateCreated: string
+    birthDate: string
+    photo: string
+  },
+  title: string
+  dateCreated: string
+}
+
+export const getTendency = async () => {
+  const { data } = await api.get("post/tendency")
+
+  return data as Tendency[]
+}
+

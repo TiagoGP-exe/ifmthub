@@ -15,7 +15,7 @@ const validateRoutes = [
   '/register',
 ]
 
- 
+
 export async function middleware(request: NextRequest) {
   const token = cookies().get('authToken')
 
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
 
       return NextResponse.next()
     } catch (error) {
-      return NextResponse.redirect(new URL('/login',url))
+      return NextResponse.redirect(new URL('/login', url))
     }
   }
 
@@ -46,9 +46,9 @@ export async function middleware(request: NextRequest) {
         }
       });
 
-      return NextResponse.redirect(new URL('/dashboard',url))
+      return NextResponse.redirect(new URL('/dashboard', url))
     } catch (error) {
-      return NextResponse.redirect(new URL('/login',url))
+      return NextResponse.redirect(new URL('/login', url))
     }
   }
 }

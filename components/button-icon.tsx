@@ -10,6 +10,7 @@ interface ButtonIconProps {
   onClick?: () => void
   className?: string
   paddingSize?: "default" | "sm" | "lg"
+  disabled?: boolean
 }
 
 const buttonIconVariants = cva(" flex  justify-center items-center  md:hover:bg-accent active:translate-y-0.5 transition-all hover:text-foreground rounded", {
@@ -38,12 +39,13 @@ export const ButtonIcon: FC<ButtonIconProps> = ({
   onClick,
   className,
   paddingSize = "default",
+  disabled
 }) => {
 
   const Icon = Icons[name]
 
   return (
-    <button className={
+    <button disabled={disabled} className={
       buttonIconVariants({
         variant: active ? "active" : "default",
         size: paddingSize,

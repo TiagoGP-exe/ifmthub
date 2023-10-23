@@ -15,12 +15,21 @@ interface SignUpProps {
   fullName: string
   gender: string
   birthDate: string
-  urlImgProfile: string
 }
 
 export const signUp = async (props: SignUpProps) => {
   const { data } = await api.post("/auth/register", props)
 
   return data
+}
+
+export const updateImage = async (idUser: number, data: FormData) => {
+  const { data: user } = await api.post(`/auth/register/${idUser}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+
+  return user
 }
 

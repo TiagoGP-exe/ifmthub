@@ -46,15 +46,17 @@ export const Comments: FC<CommentsProps> = ({ idPost }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='bg-background sticky -top-1 z-10 flex w-full flex-col gap-4 py-6  '>
       {user?.fullName &&
-        <div className='flex items-center gap-3 px-1'>
+        <div className='flex items-start gap-3 px-1'>
           <Avatar
             name={user?.fullName}
-            imgURL={user?.urlImgProfile}
+            imgURL={` data:image/png;base64, ${user?.photo}` ?? user?.urlImgProfile}
           />
-          <span>
-            <span className='font-heading '>{user?.fullName}</span>
-          </span>
-        </div>
+
+          <div className='flex flex-col'>
+            <span className='font-heading  text-sm'>{user?.fullName}</span>
+            <span className='text-xs opacity-70 '>@{user?.email?.split('@')[0]}</span>
+          </div>
+        </div >
       }
 
       <div className='flex  w-full gap-2 '>
@@ -71,6 +73,6 @@ export const Comments: FC<CommentsProps> = ({ idPost }) => {
           {isLoading ? <Loader2 className='animate-spin' /> : <SendHorizonal />}
         </Button>
       </div>
-    </form>
+    </form >
   )
 }

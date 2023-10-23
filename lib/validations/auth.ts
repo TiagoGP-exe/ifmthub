@@ -5,6 +5,10 @@ export const userAuthSchema = z.object({
   password: z.string().min(6, " Senha deve ter no mínimo 6 caracteres"),
 })
 
+
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+
 export const registerAuthSchema = z.object({
   email: z.string().email("Email inválido"),
   password: z.string().min(6, " Senha deve ter no mínimo 6 caracteres"),
@@ -15,4 +19,5 @@ export const registerAuthSchema = z.object({
   birthDate: z.string({
     required_error: "A data de nascimento é obrigatória",
   }),
+  photo: z.any()
 })

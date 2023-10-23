@@ -17,7 +17,7 @@ export const Sidebar = () => {
   const { push, prefetch } = useRouter()
   const [changeLocation, setChangeLocation] = useState("")
 
-  const { logout } = useAuth()
+  const { user, logout } = useAuth()
 
   const setPath = (path: string) => {
     setChangeLocation(path)
@@ -54,18 +54,18 @@ export const Sidebar = () => {
             onClick={() => setPath(routers.search)}
             active={changeLocation === routers.search}
           />
-          <ButtonIcon
+          {user?.email && <ButtonIcon
             name='bookmark'
             size={28}
             onClick={() => setPath(routers.bookmark)}
             active={changeLocation === routers.bookmark}
-          />
-          <ButtonIcon
+          />}
+          {user?.email && <ButtonIcon
             name='fileText'
             size={28}
             onClick={() => setPath(routers.sketch)}
             active={changeLocation === routers.sketch}
-          />
+          />}
 
         </div>
 

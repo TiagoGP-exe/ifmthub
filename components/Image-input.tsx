@@ -6,6 +6,7 @@ import {
   DetailedHTMLProps,
   InputHTMLAttributes,
   forwardRef,
+  useEffect,
   useState,
 } from 'react'
 
@@ -22,12 +23,12 @@ interface ImageInputProps
   removeImage?: () => void
   setErrors?: (errors: string) => void
   clearErrors?: () => void
+  initialImage?: string
 }
 
 // eslint-disable-next-line react/display-name
 export const ImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
   (props, ref) => {
-    const [previewImage, setPreviewImage] = useState<string>()
     const {
       label,
       className,
@@ -37,8 +38,10 @@ export const ImageInput = forwardRef<HTMLInputElement, ImageInputProps>(
       removeImage,
       setErrors,
       clearErrors,
+      initialImage,
       ...rest
     } = props
+    const [previewImage, setPreviewImage] = useState<string>(initialImage ?? "")
 
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
       if (event?.target?.files?.[0]) {

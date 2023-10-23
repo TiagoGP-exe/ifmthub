@@ -5,7 +5,7 @@ import { EmptyPlaceholder } from "../../../components/empty-placeholder"
 
 export default function NotFound() {
   return (
-    <EmptyPlaceholder className="mx-auto max-w-[800px]">
+    <EmptyPlaceholder className="mx-auto w-11/12 max-w-[600px]">
       <EmptyPlaceholder.Icon name="warning" />
       <EmptyPlaceholder.Title>Uh oh! Não encontrado</EmptyPlaceholder.Title>
       <EmptyPlaceholder.Description>

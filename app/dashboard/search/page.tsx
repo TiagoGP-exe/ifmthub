@@ -5,7 +5,7 @@ import { Input } from '../../../components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { postFilterSchema } from '../../../lib/validations/post'
-import { postFilter } from '../../../lib/services/post'
+import { GetPostByIdProps, postFilter } from '../../../lib/services/post'
 import { Card } from '../../../components/card'
 import { Loader2 } from 'lucide-react'
 
@@ -14,7 +14,7 @@ interface FormData {
 }
 
 export default function Home() {
-  const [data, setData] = useState([])
+  const [data, setData] = useState<GetPostByIdProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, formState: {
     errors

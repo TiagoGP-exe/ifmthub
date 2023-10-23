@@ -1,4 +1,3 @@
-"use client"
 
 import Image from 'next/image'
 import Head from 'next/head';
@@ -9,49 +8,14 @@ import HighlightPost from '../components/HighlightPost';
 import { HeaderNav } from '../components/header-nav';
 import { buttonVariants } from '../components/ui/button';
 import Link from 'next/link';
-import { useAuth } from '../components/use-auth';
+import { getTendency } from '../lib/services/post';
 const outfit = Outfit({ subsets: ['latin'] })
 
+export const revalidate = 3600
 
-const fakePosts = [{
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-}, {
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-},
-{
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-},
-{
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-},
-{
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-}, {
-  title: 'Como criar um site com Next.js',
-  date: '2021-08-01',
-  image: '/avatar-1.png',
-  slug: 'como-criar-um-site-com-nextjs',
-}
-]
-
-export default function Home() {
+export default async function Home() {
   const year = new Date().getFullYear()
-  const { user } = useAuth()
+  const tendency = await getTendency()
 
   return (
     <main
@@ -71,11 +35,12 @@ export default function Home() {
             Junte-se à comunidade do IFMTHUB e experimente um CMS feito sob medida para estudantes.
           </p>
 
-          <Link className={buttonVariants({
-            className: 'mx-auto md:mx-0',
-          })} href={
-            user?.email ? '/dashboard' : '/login'
-          } >
+          <Link
+            href='/dashboard'
+            className={buttonVariants({
+              className: 'mx-auto md:mx-0',
+            })}
+          >
             Comece a Ler
           </ Link>
         </div>
@@ -100,14 +65,15 @@ export default function Home() {
         </div>
 
         <div className='mb-8 grid w-full grid-cols-1 place-items-center gap-8 md:grid-cols-2 md:place-items-start lg:grid-cols-3'>
-          {fakePosts.map(({ title, date, image, slug }, index) =>
+          {tendency.map(({ title, dateCreated, author: { photo, idUser, fullName } }, index) =>
             <HighlightPost
               key={index}
               title={title}
-              date={date}
-              image={image}
-              slug={slug}
+              date={dateCreated}
+              image={photo}
+              slug={idUser.toString()}
               index={index + 1}
+              name={fullName}
             />)}
         </div>
       </section>

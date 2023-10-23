@@ -3,17 +3,16 @@ import { Skeleton } from '../../../components/ui/skeleton';
 
 export default function Loading() {
   return (
-    <div className="grid w-full gap-10">
-      <div className="flex w-full items-center justify-between">
-        <Skeleton className="h-[38px] w-[90px]" />
-        <Skeleton className="h-[38px] w-[80px]" />
+    <div className="flex w-full flex-col items-center justify-center gap-y-4 px-4">
+      <Skeleton className="h-16 w-full max-w-screen-sm" />
+      <div className="flex w-full max-w-screen-sm items-center gap-4">
+        <Skeleton className="h-16 w-16" />
+        <Skeleton className="h-16 flex-1" />
       </div>
-      <div className="mx-auto w-[800px] space-y-6">
-        <Skeleton className="h-[50px] w-full" />
-        <Skeleton className="h-[20px] w-2/3" />
-        <Skeleton className="h-[20px] w-full" />
-        <Skeleton className="h-[20px] w-full" />
-      </div>
+      <Skeleton className="mb-4 h-8 w-full max-w-screen-sm" />
+      <Skeleton className="h-16 w-full max-w-screen-sm" />
+      <Skeleton className="h-12 w-full max-w-screen-sm" />
+      <Skeleton className="h-8 w-full max-w-screen-sm" />
     </div>
   )
 }

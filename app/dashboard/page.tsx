@@ -10,25 +10,9 @@ import { useRouter } from 'next/navigation';
 export default function Home() {
   const [arrayTotal, setArrayTotal] = useState<GetPostProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const { push, prefetch } = useRouter()
-
-  const refreshPosts = useRef(null)
-  const anotherIsInView = useInView(refreshPosts)
-
-  // useEffect(() => {
-  //   if (anotherIsInView) {
-  //     setIsLoading(true)
-  //     const timer = setTimeout(() => {
-  //       setArrayTotal(array.slice(0, arrayTotal.length + 10))
-  //       setIsLoading(false)
-  //     }, 1500)
-
-  //     return () => clearTimeout(timer)
-  //   }
-  // }, [anotherIsInView, arrayTotal.length])
+  const { push } = useRouter()
 
   useEffect(() => {
-
     (async () => {
       setIsLoading(true)
       const data = await getPosts()
@@ -36,6 +20,7 @@ export default function Home() {
       setArrayTotal(data.reverse())
     })()
   }, [])
+
 
   return (
 
@@ -45,7 +30,9 @@ export default function Home() {
           author: {
             fullName,
             urlImgProfile,
+            photo: authorPhoto
           },
+          photo,
           title,
           dateCreated,
           subtitle,
@@ -56,8 +43,11 @@ export default function Home() {
             date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
             title={title}
             authorName={fullName}
-            profileImage={urlImgProfile}
-            img={`https://source.unsplash.com/random/640x${index + 480}`}
+            profileImage={authorPhoto ? `data:image/png;base64, ${authorPhoto}` : urlImgProfile}
+            img={
+              `data:image/png;base64, ${photo}`
+            }
+
             description={subtitle}
             onClick={() => {
               push(`post/${idPost}`)
@@ -70,7 +60,7 @@ export default function Home() {
           <Loader2 className='animate-spin' size='24' />
         </div>
       )}
-      <div ref={refreshPosts} />
+      {/* <div ref={refreshPosts} /> */}
     </main>
   )
 }

@@ -1,4 +1,8 @@
+"use client"
+
 import Image from 'next/image'
+import Link from 'next/link'
+import { Avatar } from './avatar-and-status'
 
 const colorsHighlight = {
   1: 'text-yellow-500',
@@ -8,7 +12,6 @@ const colorsHighlight = {
 }
 
 const returnColorByIndex = (index: unknown) => {
-
   if (Number(index) < 4) {
     const color = index as keyof typeof colorsHighlight
 
@@ -24,24 +27,21 @@ export interface HighlightPostProps {
   image: string;
   slug: string;
   index: number;
+  name: string;
 }
 
-const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) => (
-  <div onClick={() => console.log(slug)} className='flex max-w-xs cursor-pointer flex-col items-start'>
+const HighlightPost = ({ title, date, image, slug, index, name }: HighlightPostProps) => (
+  <Link href={`/post/${slug}`} className='flex max-w-xs cursor-pointer flex-col items-start'>
     <div className='flex items-center justify-center gap-x-4'>
       <h2 className={`text-2xl font-bold  ${returnColorByIndex(index)}`}>
         {index}º
       </h2>
-      <Image
-        unoptimized
-        alt='Ilustração de uma pessoa escrevendo em um quadro'
-        src={image}
-        height={36}
-        width={36}
-        className="ring-foreground aspect-square rounded-md object-cover ring-2"
+      <Avatar
+        name={name}
+        imgURL={image}
       />
       <h1 className='font-heading text-xl'>
-        Pamela Currey
+        {name}
       </h1>
     </div>
 
@@ -54,11 +54,10 @@ const HighlightPost = ({ title, date, image, slug, index }: HighlightPostProps) 
         day: 'numeric',
         month: 'long',
         year: 'numeric'
-      })
-      }
+      })}
     </span>
 
-  </div>
+  </Link>
 )
 
 export default HighlightPost

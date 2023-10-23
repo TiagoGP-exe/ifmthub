@@ -27,22 +27,23 @@ export const HeaderDashboard = () => {
         className='hidden md:block'
         name='add'
         onClick={() => push("/editor/new")}
+        disabled={!user?.email}
       />
 
       <div className='flex flex-1 flex-row-reverse items-center justify-between gap-4 md:flex-none md:flex-row md:justify-center'>
         <ModeToggle />
-
-        <div className='flex items-center gap-2 '>
-          <Avatar name={user?.fullName ?? ""} imgURL={user?.urlImgProfile ?? ""} />
-          <div className='flex flex-col'>
-            <span className='text-[0.6rem] opacity-70'>
-              {
-                GENDER_MESSAGE[user?.gender ?? "M"]
-              }
-            </span>
-            <p className='text-lg  font-bold leading-5'>{user?.fullName}</p>
-          </div>
-        </div>
+        {user?.email &&
+          <div className='flex items-center gap-3 '>
+            <Avatar name={user?.fullName ?? ""} imgURL={`data:image/png;base64, ${user?.photo}` ?? user?.urlImgProfile ?? ""} />
+            <div className='flex flex-col'>
+              <span className='text-[0.6rem] opacity-70'>
+                {
+                  GENDER_MESSAGE[user?.gender ?? "M"]
+                }
+              </span>
+              <p className='text-lg  font-bold leading-5'>{user?.fullName}</p>
+            </div>
+          </div>}
       </div>
     </header>
   )

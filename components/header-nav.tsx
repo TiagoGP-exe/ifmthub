@@ -19,7 +19,7 @@ export const HeaderNav = () => (
         <Link className={buttonVariants({
           variant: 'outline',
           className: 'min-w-[10rem]'
-        })} href='/dashboard' >
+        })} href='/login' >
           Começar a Escrever
         </ Link>
       </div>

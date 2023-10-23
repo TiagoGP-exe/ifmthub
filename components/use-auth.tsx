@@ -12,7 +12,8 @@ export interface UserProps {
   gender: "M" | "F"
   dateCreated: string
   birthDate: string
-  urlImgProfile: string
+  urlImgProfile?: string
+  photo?: string
 }
 
 
