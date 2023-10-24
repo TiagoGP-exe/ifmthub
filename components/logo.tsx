@@ -1,6 +1,6 @@
 "use client"
 
-import { ForwardRefComponent, SVGMotionProps, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { useTheme } from "next-themes"
 import { FC } from 'react'
 

@@ -9,12 +9,13 @@ import { buttonVariants } from '../components/ui/button';
 import Link from 'next/link';
 import { getTendency } from '../lib/services/post';
 import { Metadata } from 'next';
+import { siteConfig } from '../config/site';
 const outfit = Outfit({ subsets: ['latin'] })
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Home',
+  title: `Home - ${siteConfig.name}`,
 }
 
 export default async function Home() {
@@ -57,22 +58,22 @@ export default async function Home() {
         </div>
       </div>
 
-      <section className='mt-10 flex w-full max-w-screen-xl flex-col justify-center md:w-11/12 md:items-start'>
-        <div className='mb-8 flex items-center justify-center gap-x-4'>
+      <section className='mt-10 flex w-full max-w-screen-xl flex-col items-center justify-center md:w-11/12 md:items-start'>
+        <div className='mb-8 flex w-full max-w-xs gap-x-4 md:max-w-screen-xl'>
           <TrendingUp size={32} />
-          <h2 className='font-heading text-center text-3xl '>
+          <h2 className='font-heading text-3xl '>
             Tendências
           </h2>
         </div>
 
         <div className='mb-8 grid w-full grid-cols-1 place-items-center gap-8 md:grid-cols-2 md:place-items-start lg:grid-cols-3'>
-          {tendency.map(({ title, dateCreated, author: { photo, idUser, fullName } }, index) =>
+          {tendency.map(({ title, dateCreated, author: { photo, idUser, fullName }, idPost }, index) =>
             <HighlightPost
               key={index}
               title={title}
               date={dateCreated}
               image={`data:image/png;base64, ${photo}`}
-              slug={idUser.toString()}
+              slug={idPost.toString()}
               index={index + 1}
               name={fullName}
             />)}

@@ -149,6 +149,7 @@ interface Tendency {
   },
   title: string
   dateCreated: string
+  idPost: number
 }
 
 export const getTendency = async () => {

@@ -1,11 +1,15 @@
+import { Metadata } from 'next'
 import { HeaderDashboard } from "../../components/header-dashboard"
 import { Sidebar } from "../../components/sidebar"
+import { siteConfig } from '../../config/site'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
-
+export const metadata: Metadata = {
+  title: `Dashboard - ${siteConfig.name}`,
+}
 
 export default function Dashboard({ children }: DashboardLayoutProps) {
   return (

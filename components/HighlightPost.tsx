@@ -31,7 +31,7 @@ export interface HighlightPostProps {
 }
 
 const HighlightPost = ({ title, date, image, slug, index, name }: HighlightPostProps) => (
-  <Link href={`/post/${slug}`} className='flex max-w-xs cursor-pointer flex-col items-start'>
+  <Link href={`/post/${slug}`} className='flex w-full max-w-xs cursor-pointer flex-col items-start'>
     <div className='flex items-center justify-center gap-x-4'>
       <h2 className={`text-2xl font-bold  ${returnColorByIndex(index)}`}>
         {index}º
