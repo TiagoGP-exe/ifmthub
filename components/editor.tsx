@@ -107,14 +107,14 @@ export function Editor({ post, author }: EditorProps) {
 
     const blocks = await ref.current?.save()
 
-    const tags = getValues("tags").split(" ").map(item => item.trim())
+    const tags = getValues("tags").split(" ").map((item: string) => item.trim())
 
     const formattedData = {
       idAuthor: user?.idUser as number,
       category: {
         description: "test",
       },
-      tags: tags.map(item => ({
+      tags: tags.map((item: any) => ({
         description: item
       })),
       title: data.title,
@@ -162,7 +162,13 @@ export function Editor({ post, author }: EditorProps) {
         <div className="flex w-full max-w-[650px] items-center justify-between">
           <div className="flex items-center space-x-10">
             <button
-              onClick={() => router.back()}
+              onClick={() => {
+                try {
+                  router.back()
+                } catch (error) {
+                  router.push("/dashboard")
+                }
+              }}
               type='button'
               className={cn(buttonVariants({ variant: "ghost" }))}
             >
