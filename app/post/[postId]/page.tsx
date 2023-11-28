@@ -12,34 +12,6 @@ interface EditorPageProps {
   params: { postId: string }
 }
 
-type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const id = params.id
-
-  // fetch data
-  const product = await fetch(BASE_API_URL + `/post/${id}`).then((res) => res.json())
-
-  // optionally access and extend (rather than replace) parent metadata
-  const previousImages = (await parent).openGraph?.images || []
-
-  return {
-    title: product.title,
-    openGraph: {
-      images: [...previousImages],
-    },
-    authors: [{ name: product.author.fullName }],
-  }
-}
-
-
 export default async function EditorPage({ params }: EditorPageProps) {
   if (!params.postId || !Number(params.postId)) {
     notFound()

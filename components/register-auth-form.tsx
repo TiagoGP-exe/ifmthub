@@ -17,6 +17,7 @@ import { signUp, updateImage } from '../lib/services/auth'
 import { EyeOpenIcon, EyeClosedIcon } from '@radix-ui/react-icons'
 import { ImageInput } from './Image-input'
 import imageCompression from 'browser-image-compression'
+import { useRouter } from 'next/navigation'
 
 interface RegisterAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -43,6 +44,7 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
   } = useForm<FormData>({
     resolver: zodResolver(registerAuthSchema),
   })
+  const { push } = useRouter()
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
 
@@ -56,23 +58,22 @@ export function RegisterAuthForm({ className, ...props }: RegisterAuthFormProps)
     try {
       const payload = await signUp(data)
 
-      const formdata = new FormData()
+      if (data.photo) {
+        const formdata = new FormData()
 
-      formdata.append('file', data.photo)
+        formdata.append('file', data.photo)
 
-      await updateImage(payload.idUser, formdata)
+        await updateImage(payload.idUser, formdata)
+      }
 
-      reset()
 
-      return toast({
+      toast({
         title: "Verifique seu email",
         description: "Enviamos um email com um link para confirmar sua conta.",
       })
 
-
+      push("/login")
     } catch (error) {
-      console.log(error)
-
       return toast({
         title: "Erro",
         description: "Algo deu errado. Tente novamente.",
