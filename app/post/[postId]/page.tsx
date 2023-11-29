@@ -53,10 +53,11 @@ export default async function EditorPage({ params }: EditorPageProps) {
                 <div key={comment.idComment}
                   className='border-foreground/5 dark:border-foreground/10 flex flex-col border-b px-1 pb-4'>
                   <div className='flex items-center gap-3'>
+                    {/* {JSON.stringify(comment.commenter.photo)} */}
                     <Avatar
                       disabled
                       name={comment.commenter.fullName}
-                      imgURL={comment.commenter.urlImgProfile} />
+                      imgURL={comment.commenter.photo ? `data:image/png;base64, ${comment.commenter.photo}` : ""} />
                     <div className='flex flex-col'>
                       <span className='font-heading'>{comment.commenter.fullName}</span>
                       <span className='text-xs'>{intlFormat(new Date(new Date(comment.dateCreated).getTime() - 4 * 60 * 60 * 1000), {

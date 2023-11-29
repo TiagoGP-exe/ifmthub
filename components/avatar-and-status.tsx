@@ -41,7 +41,6 @@ export const Avatar: FC<StatusProps> = ({
   const { push } = useRouter()
   const { logout } = useAuth()
 
-
   const verifyNameLogout = (nameOfRoute: string, name: string) => {
     if (name === "logout") {
       logout()

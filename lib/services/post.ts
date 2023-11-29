@@ -111,7 +111,7 @@ export interface Commenter {
   gender: string
   dateCreated: string
   birthDate: string
-  urlImgProfile: string
+  photo: string
 }
 
 

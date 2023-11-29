@@ -36,10 +36,8 @@ export default function Home() {
             date={new Intl.DateTimeFormat('pt-BR').format(new Date(dateCreated))}
             title={title}
             authorName={fullName}
-            profileImage={authorPhoto ? `data:image/png;base64, ${authorPhoto}` : urlImgProfile}
-            img={
-              `data:image/png;base64, ${photo}`
-            }
+            profileImage={authorPhoto ? `data:image/png;base64, ${authorPhoto}` : urlImgProfile ?? ""}
+            img={`data:image/png;base64, ${photo}`}
 
             description={subtitle}
             onClick={() => {

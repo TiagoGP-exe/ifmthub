@@ -34,7 +34,7 @@ export const HeaderDashboard = () => {
         <ModeToggle />
         {user?.email &&
           <div className='flex items-center gap-3 '>
-            <Avatar name={user?.fullName ?? ""} imgURL={`data:image/png;base64, ${user?.photo}` ?? user?.urlImgProfile ?? ""} />
+            <Avatar name={user?.fullName ?? ""} imgURL={user?.photo ? `data:image/png;base64, ${user?.photo}` : user?.urlImgProfile ?? ""} />
             <div className='flex flex-col'>
               <span className='text-[0.6rem] opacity-70'>
                 {
