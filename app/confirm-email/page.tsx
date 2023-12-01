@@ -1,9 +1,10 @@
-import { notFound, useRouter } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { confirmEmail } from '../../lib/services/auth'
-import { Button, buttonVariants } from '../../components/ui/button'
+import { buttonVariants } from '../../components/ui/button'
 import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { EmptyPlaceholder } from '../../components/empty-placeholder'
+import { ConfirmEmailButton } from '../../components/confirm-email-button'
 
 
 interface ConfirmEmailProps {
@@ -19,12 +20,7 @@ export default async function ConfirmEmail(props: ConfirmEmailProps) {
 
 
   try {
-
     const data = await confirmEmail(props.searchParams?.token)
-
-    const setCookies = () => {
-      Cookies.set('authToken', data.token, { expires: new Date(Date.now() + 60 * 60 * 1000) })
-    }
 
     return (
       <EmptyPlaceholder className="mx-auto mt-10 w-11/12 max-w-[600px]">
@@ -33,12 +29,12 @@ export default async function ConfirmEmail(props: ConfirmEmailProps) {
         <EmptyPlaceholder.Description>
           Seu email foi confirmado com sucesso
         </EmptyPlaceholder.Description>
-        <Link href="/dashboard" onClick={setCookies} className={buttonVariants({ variant: "ghost" })}>
-          Voltar
-        </Link>
+        <ConfirmEmailButton token={data.token} />
       </EmptyPlaceholder>
     )
   } catch (error) {
+    console.error(error)
+
     return (
       <EmptyPlaceholder className="mx-auto mt-10 w-11/12 max-w-[600px]">
         <EmptyPlaceholder.Icon name="warning" />
