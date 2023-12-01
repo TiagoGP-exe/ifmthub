@@ -5,9 +5,6 @@ import { Comments } from '../../../components/coments'
 import { Avatar } from '../../../components/avatar-and-status'
 import { intlFormat } from 'date-fns'
 import { OptionsPost } from '../../../components/options-post'
-import { BASE_API_URL } from '../../../lib/constants'
-import { Metadata, ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface'
-
 interface EditorPageProps {
   params: { postId: string }
 }

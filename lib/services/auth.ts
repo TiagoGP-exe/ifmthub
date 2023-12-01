@@ -33,3 +33,9 @@ export const updateImage = async (idUser: number, data: FormData) => {
   return user
 }
 
+
+export const confirmEmail = async (token: string) => {
+  const { data } = await api.post(`/auth/confirm?token=${token}`)
+
+  return data
+}
