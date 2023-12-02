@@ -1,10 +1,8 @@
 import { notFound } from 'next/navigation'
 import { confirmEmail } from '../../lib/services/auth'
 import { buttonVariants } from '../../components/ui/button'
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { EmptyPlaceholder } from '../../components/empty-placeholder'
-import { ConfirmEmailButton } from '../../components/confirm-email-button'
 
 
 interface ConfirmEmailProps {
