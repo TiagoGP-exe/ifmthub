@@ -20,7 +20,7 @@ export default async function ConfirmEmail(props: ConfirmEmailProps) {
 
 
   try {
-    const data = await confirmEmail(props.searchParams?.token)
+    await confirmEmail(props.searchParams?.token)
 
     return (
       <EmptyPlaceholder className="mx-auto mt-10 w-11/12 max-w-[600px]">
@@ -29,7 +29,10 @@ export default async function ConfirmEmail(props: ConfirmEmailProps) {
         <EmptyPlaceholder.Description>
           Seu email foi confirmado com sucesso
         </EmptyPlaceholder.Description>
-        <ConfirmEmailButton token={data.token} />
+        <Link href="/login"
+          className={buttonVariants({ variant: "ghost", })}>
+          Voltar
+        </Link>
       </EmptyPlaceholder>
     )
   } catch (error) {
