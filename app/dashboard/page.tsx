@@ -13,6 +13,8 @@ export default function Home() {
     queryFn: async () => await getPosts()
   });
 
+  console.log(arrayTotal)
+
   const { push } = useRouter()
 
   return (

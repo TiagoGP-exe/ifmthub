@@ -3,7 +3,13 @@ import type { Icon } from "lucide-react"
 
 import { Icons } from "@/components/icons"
 
+declare module '@editorjs/header';
 declare module "@editorjs/table"
+declare module "@editorjs/embed"
+declare module "@editorjs/list"
+declare module "@editorjs/code"
+declare module "@editorjs/link"
+declare module "@editorjs/inline-code"
 
 export type NavItem = {
   title: string
@@ -19,15 +25,15 @@ export type SidebarNavItem = {
   external?: boolean
   icon?: keyof typeof Icons
 } & (
-  | {
+    | {
       href: string
       items?: never
     }
-  | {
+    | {
       href?: string
       items: NavLink[]
     }
-)
+  )
 
 export type SiteConfig = {
   name: string

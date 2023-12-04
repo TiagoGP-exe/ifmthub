@@ -1,31 +1,34 @@
 "use client"
+// @ts-nocheck
 
 import * as React from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import EditorJS from "@editorjs/editorjs"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import TextareaAutosize from "react-textarea-autosize"
+import * as z from "zod"
 
 import "../styles/editor.css"
 import { toast } from './ui/use-toast'
 import { cn, getFileDimensions } from '../lib/utils'
 import { buttonVariants } from './ui/button'
 import { Icons } from './icons'
-import { Input } from './ui/input'
-import { ImageInput } from './Image-input'
-import { postUpdateImage, setPost } from '../lib/services/post'
-import { useAuth } from './use-auth'
-import { Avatar } from './avatar-and-status'
 import imageCompression from 'browser-image-compression'
+import { useAuth } from './use-auth'
+import { ImageInput } from './Image-input'
+import { Input } from './ui/input'
+import { Avatar } from './avatar-and-status'
 import Image from 'next/image'
+import { postUpdateImage, setPost } from '../lib/services/post'
+
 interface EditorProps {
   post: Pick<any, "id" | "title" | "content" | "published" | "readOnly" | "tags" | "postImage">
   author?: any
 }
 
 type FormData = { tags: string, title: string, content: string, photo: File, subtitle: string, }
-
 
 const compressImage = async (file: File): Promise<File> => {
   const result = await getFileDimensions(file);
@@ -41,16 +44,19 @@ const compressImage = async (file: File): Promise<File> => {
 }
 
 export function Editor({ post, author }: EditorProps) {
-  const { register, handleSubmit, getValues, setValue } = useForm<FormData>()
+  const { register, handleSubmit, getValues, setValue } = useForm<FormData>({
+    // resolver: zodResolver(),
+  })
   const ref = React.useRef<EditorJS>()
   const router = useRouter()
   const [isSaving, setIsSaving] = React.useState<boolean>(false)
   const [isMounted, setIsMounted] = React.useState<boolean>(false)
   const { user } = useAuth()
 
+
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
-    const Header = (await import("@editorjs/header" as any)).default
+    const Header = (await import("@editorjs/header")).default
     const Embed = (await import("@editorjs/embed" as any)).default
     const Table = (await import("@editorjs/table" as any)).default
     const List = (await import("@editorjs/list" as any)).default
@@ -107,7 +113,7 @@ export function Editor({ post, author }: EditorProps) {
 
     const blocks = await ref.current?.save()
 
-    const tags = getValues("tags").split(" ").map((item: string) => item.trim())
+    const tags = getValues("tags").split(",").map((item: string) => item.trim())
 
     const formattedData = {
       idAuthor: user?.idUser as number,
@@ -158,33 +164,24 @@ export function Editor({ post, author }: EditorProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex w-full flex-col items-center justify-center px-4">
-
         <div className="flex w-full max-w-[650px] items-center justify-between">
           <div className="flex items-center space-x-10">
-            <button
-              onClick={() => {
-                try {
-                  router.back()
-                } catch (error) {
-                  router.push("/dashboard")
-                }
-              }}
-              type='button'
-              className={cn(buttonVariants({ variant: "ghost" }))}
+            <Link
+              href="/dashboard"
+              className={cn(buttonVariants({ variant: "outline" }))}
             >
               <Icons.chevronLeft className="mr-2 h-4 w-4" />
-              Voltar
-            </button>
+              Back
+            </Link>
           </div>
-          {!post.readOnly &&
-            <button type="submit" className={cn(buttonVariants())}>
-              {isSaving && (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              <span>Save</span>
-            </button>}
+          {!post.readOnly && <button type="submit" className={cn(buttonVariants())}>
+            {isSaving && (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            <span>Save</span>
+          </button>}
         </div>
-        <div className="dark:prose-invert mx-auto flex w-full max-w-[650px] flex-col gap-4 ">
+        <div className="prose prose-stone dark:prose-invert mx-auto mt-8 w-full max-w-[650px]">
           {!post.readOnly && <ImageInput initialImage={post.postImage} saveImage={(e) => setValue("photo", e)} className='mb-4 w-full ' onError={(e) => e.preventDefault()} />}
           {!post.readOnly && <Input
             {...register("tags")}
@@ -196,19 +193,19 @@ export function Editor({ post, author }: EditorProps) {
             id="title"
             defaultValue={post.title}
             placeholder="Post title"
-            className="text-foreground font-heading mt-4 w-full resize-none appearance-none overflow-hidden bg-transparent text-4xl focus:outline-none"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-4xl font-bold focus:outline-none"
             {...register("title")}
             disabled={post.readOnly}
           />
-
           {post.readOnly && author?.fullName &&
-            <div className=' flex items-center gap-3 '>
+            <div className=' mt-4 flex  items-center gap-3 border-y py-4'>
               <Avatar
+                className='h-10 w-10'
                 disabled
                 name={author?.fullName}
                 imgURL={`data:image/png;base64, ${author?.photo}` ?? author?.urlImgProfile}
               />
-              <div className='flex h-10 flex-col justify-between '>
+              <div className='flex flex-col justify-between '>
                 <span className='font-heading text-sm'>{author?.fullName}</span>
                 <span className='text-foreground/40 text-xs'>
                   {new Date(post.published).toLocaleDateString()}
@@ -216,34 +213,22 @@ export function Editor({ post, author }: EditorProps) {
               </div>
             </div>
           }
-
           {post.readOnly &&
             <Image
               src={post.postImage}
               alt=""
               width={1080}
               height={100}
-              className="aspect-[7/3] w-full rounded-md bg-slate-300 object-cover"
+              className="bg-foreground/10 aspect-[7/3] w-full rounded-md object-cover"
             />
           }
-          {post.readOnly && post.tags.length > 0 && (
-            <div className='border-foreground/5 dark:border-foreground/10 mb-2 flex max-w-screen-sm flex-wrap items-center gap-2 border-y  py-3'>
-              <span>Tags: </span>
-              {post.tags.map((tag: any, index: number) => (
-                <div key={index} className="bg-foreground-soft/50 text-foreground/70 flex items-center gap-2 rounded-md px-4 py-1 text-sm">
-                  <span>{tag.description}</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <div id="editor" className=" w-full " />
+          <div id="editor" className="min-h-[500px]" />
           {!post.readOnly && <p className="text-sm text-gray-500">
             Use{" "}
             <kbd className="bg-muted rounded-md border px-1 text-xs uppercase">
               Tab
             </kbd>{" "}
-            to open the command menu.
+            para abrir o menu de comando.
           </p>}
         </div>
       </div>

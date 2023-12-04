@@ -1,8 +1,8 @@
 import { notFound, redirect } from 'next/navigation';
-import { Editor } from '../../../components/editor'
-import { api } from '../../../lib/api';
+import { Editor } from '../../../../components/editor'
+import { api } from '../../../../lib/api';
 import { cookies } from 'next/headers'
-import { getPostById } from '../../../lib/services/post';
+import { getPostById } from '../../../../lib/services/post';
 interface EditorPageProps {
   params: { postId: string }
 }
