@@ -25,6 +25,12 @@ export const setPost = async (post: PostProps) => {
   return data
 }
 
+export const updatePost = async (id: string, post: any) => {
+  const { data } = await api.put(`/post/${id}`, post)
+
+  return data
+}
+
 // , {
 //   headers: {
 //     'Content-Type': 'multipart/form-data',

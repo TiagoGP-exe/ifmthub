@@ -21,7 +21,7 @@ import { ImageInput } from './Image-input'
 import { Input } from './ui/input'
 import { Avatar } from './avatar-and-status'
 import Image from 'next/image'
-import { postUpdateImage, setPost } from '../lib/services/post'
+import { postUpdateImage, setPost, updatePost } from '../lib/services/post'
 
 interface EditorProps {
   post: Pick<any, "id" | "title" | "content" | "published" | "readOnly" | "tags" | "postImage">
@@ -65,6 +65,8 @@ export function Editor({ post, author }: EditorProps) {
     const InlineCode = (await import("@editorjs/inline-code" as any
     )).default
 
+    setValue("tags", post.tags.map((item: any) => item.description).join(", "))
+
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editor",
@@ -88,7 +90,7 @@ export function Editor({ post, author }: EditorProps) {
         readOnly: post.readOnly,
       })
     }
-  }, [post.content, post.readOnly])
+  }, [post.content.blocks, post.readOnly, post.tags, setValue])
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -131,6 +133,36 @@ export function Editor({ post, author }: EditorProps) {
     }
 
     try {
+
+      if (post.id) {
+        const formattedData = {
+          category: {
+            description: "test",
+          },
+          tags: tags.map((item: any) => ({
+            description: item
+          })),
+          title: data.title,
+          content: JSON.stringify(blocks),
+          subtitle: blocks?.blocks[0]?.data?.text,
+        }
+        const newPost = await updatePost(post.id, formattedData)
+
+        if (!!data.photo) {
+          const compressedFiles = await compressImage(data.photo)
+          formData.append("file", compressedFiles)
+          await postUpdateImage(newPost.idPost, formData)
+        }
+
+        router.refresh()
+
+        toast({
+          description: "Post salvo com sucesso.",
+        })
+
+        router.push(`/post/${newPost.idPost}`)
+        return
+      }
       const newPost = await setPost(formattedData)
 
       if (!!data.photo) {
@@ -142,15 +174,16 @@ export function Editor({ post, author }: EditorProps) {
       router.refresh()
 
       toast({
-        description: "Your post has been saved.",
+        description: "Post salvo com sucesso.",
       })
 
       router.push(`/post/${newPost.idPost}`)
       return
     } catch (error) {
+      console.log(error)
       return toast({
-        title: "Something went wrong.",
-        description: "Your post was not saved. Please try again.",
+        title: "Algo deu errado.",
+        description: "Não foi possível salvar seu post, tente novamente.",
         variant: "destructive",
       })
     } finally {
