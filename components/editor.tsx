@@ -56,13 +56,14 @@ export function Editor({ post, author }: EditorProps) {
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default
-    const Header = (await import("@editorjs/header")).default
+    const Header = (await import("@editorjs/header" as any)).default
     const Embed = (await import("@editorjs/embed" as any)).default
     const Table = (await import("@editorjs/table" as any)).default
     const List = (await import("@editorjs/list" as any)).default
     const Code = (await import("@editorjs/code" as any)).default
     const LinkTool = (await import("@editorjs/link" as any)).default
-    const InlineCode = (await import("@editorjs/inline-code" as any)).default
+    const InlineCode = (await import("@editorjs/inline-code" as any
+    )).default
 
     if (!ref.current) {
       const editor = new EditorJS({
